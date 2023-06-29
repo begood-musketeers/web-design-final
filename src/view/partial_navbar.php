@@ -1,20 +1,20 @@
 <?php
-function if_active($page, $sub_page = null) {
-  global $page_name, $sub_page_name;
-  if ($page == $page_name && $sub_page == $sub_page_name) {
+function if_active($potential_page) {
+  global $page;
+  if ($page == $potential_page) {
     echo "active";
   }
 }
 ?>
 
 <nav class="main-nav">
-    <a class="nav-icon <?php if_active(""); ?>" href="?">
+    <a class="nav-icon <?php if_active("index"); ?>" href="?">
         <i class="material-icons">home</i>
     </a>
     <a class="nav-icon <?php if_active("search"); ?>" href="?p=search">
         <i class="material-icons">search</i>
     </a>
-    <a class="nav-icon <?php if_active("add"); ?>" href="?p=new_post">
+    <a class="nav-icon <?php if_active("new_post"); ?>" href="?p=new_post">
         <i class="material-icons">add</i>
     </a>
     <a class="nav-icon <?php if_active("notifications"); ?>" href="?p=notifications">
