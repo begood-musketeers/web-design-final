@@ -4,3 +4,29 @@ html, body {
   margin: 0;
   padding: 0;
 }
+
+/* NAVBAR */
+.main-nav {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+.nav-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 75px;
+  width: 75px;
+  color: #0066cc;
+  text-decoration: none;
+}
+.nav-icon .material-icons {
+  font-size: 40px;
+}
+.nav-icon.active {
+  background-color: #0066cc;
+  color: #fff;
+}
