@@ -1,0 +1,47 @@
+create-option {
+  display:block;
+  width:100%;
+  height:100px;
+  padding:10px;
+}
+
+create-option-left, create-option-right {
+  display:flex;
+  align-items:center;
+  height:100%;
+  width:50%;
+}
+
+create-option-left {
+  float:left;
+  justify-content:flex-start;
+}
+
+create-option-right {
+  float:right;
+  justify-content:flex-end;
+}
+
+create-option-right a {
+  text-decoration: none !important;
+}
+
+create-option-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  background-color: #f1f1f1;
+  color:#000;
+  cursor: pointer;
+}
+
+create-option-block:hover {
+  background-color: #0066cc;
+  color: #fff;
+}
+
+create-option-block .material-icons {
+  font-size: 30px;
+}
