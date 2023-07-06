@@ -6,6 +6,8 @@ html, body {
   font-family: Roboto, sans-serif;
 }
 
+
+
 /* NAVBAR */
 .main-nav {
   display: flex;
@@ -22,6 +24,7 @@ html, body {
   height: 75px;
   width: 75px;
   color: #0066cc;
+  background: #fff;
   text-decoration: none;
 }
 .nav-icon .material-icons {
@@ -30,4 +33,34 @@ html, body {
 .nav-icon.active {
   background-color: #0066cc;
   color: #fff;
+}
+
+
+
+/* TYPOGRAPHY */
+h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+}
+
+h2 {
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+}
+
+.text-center {
+  text-align: center;
+}
+
+
+
+/* BONES */
+.flex-center {
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
