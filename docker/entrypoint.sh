@@ -1,5 +1,3 @@
-#!/usr/bin/env sh
-
-set -euo
+#!/bin/sh
 
 exec apachectl -D FOREGROUND
