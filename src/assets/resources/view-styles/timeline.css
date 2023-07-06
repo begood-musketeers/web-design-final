@@ -21,7 +21,6 @@ posts {
 item {
   display: block;
   width:100%;
-  min-width: 86%;
   max-width:620px;
   height: fit-content;
   box-shadow: 0px 0px 5px rgba(0,0,0,0.3);
@@ -57,4 +56,10 @@ item-stat {
 .item-pfp {
   margin-right:15px;
   background:#000
+}
+
+@media (max-width: 990px) {
+  item {
+    min-width: 86%;
+  }
 }
