@@ -1,4 +1,7 @@
 <?php
+// ini overwrites
+ini_set("display_errors", true);
+
 // App settings
 $project_version = 1;
 $execution_mode = 'strict'; // quiet - oblivious - strict
@@ -15,6 +18,6 @@ $page_description = "";
 // Database settings
 $database_model = 'local';
 $database_credentials = array(
-  'local' => array('localhost', 'root', ''),
-  'production' => array('localhost', 'root', '')
+  'local' => array('db', 'root', 'password'),
+  'production' => array('db', 'root', 'password')
 );
