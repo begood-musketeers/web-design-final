@@ -30,7 +30,7 @@ class SimpleDB {
   }
 
   function fetch_multiple($sql) {
-    $result = mysqli_query($this->link, $sql) or die(mysql_error());
+    $result = mysqli_query($this->link, $sql);
     $array = Array();
     for($i = 0; $array[$i] = mysqli_fetch_assoc($result); $i++) ;
     array_pop($array);
