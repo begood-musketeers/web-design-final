@@ -6,3 +6,4 @@ import("assets/resources/custom/custom.css");
 
 // per page
 import("assets/resources/view-styles/create.css");
+import("assets/resources/view-styles/timeline.css");

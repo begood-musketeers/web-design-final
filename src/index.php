@@ -7,7 +7,7 @@ include("_config/core/functions.php");
 include("_config/core/classes.php");
 
 // COLLECT PARAMETERS
-$page = (isset($_GET['p'])) ? $_GET['p'] : "index";
+$page = (isset($_GET['p'])) ? $_GET['p'] : "timeline";
 $sub_page = (isset($_GET['s'])) ? $_GET['s'] : false;
 
 // SERVE RESOURCES IF $page IS NOT PRESENT IN THE RESOURCE BLACKLIST

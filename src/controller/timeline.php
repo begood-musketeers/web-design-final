@@ -1,5 +1,6 @@
 <?php
 include("model/post_db.php");
+include("model/event_db.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request'])) {
   $request = sanitise($_POST['request']);
@@ -9,7 +10,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request'])) {
 
 switch ($request) {
   case 'get_posts':
-    $posts = PostDB::get_posts();
+    $posts = PostDB::get_latest(50);
+    $events = EventDB::get_latest(50);
+
+    $content = array_merge($posts, $events);
     break;
 
   default:

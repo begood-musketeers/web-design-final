@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Jun 29, 2023 at 02:05 AM
+-- Generation Time: Jul 06, 2023 at 09:28 AM
 -- Server version: 8.0.33
 -- PHP Version: 8.1.20
 
@@ -74,8 +74,16 @@ CREATE TABLE `event` (
   `type` enum('sports','cinema','hangout','games') NOT NULL,
   `location` varchar(256) NOT NULL,
   `start_datetime` datetime NOT NULL,
-  `created_datetime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_datetime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `visible` tinyint NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `event`
+--
+
+INSERT INTO `event` (`id`, `user_id`, `title`, `description`, `type`, `location`, `start_datetime`, `created_datetime`, `visible`) VALUES
+(1, 1, 'test event', 'this is event', 'sports', 'event place', '2023-07-06 09:07:27', '2023-07-06 09:07:47', 0);
 
 -- --------------------------------------------------------
 
@@ -131,6 +139,13 @@ CREATE TABLE `post` (
   `created_datetime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `visible` tinyint NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `post`
+--
+
+INSERT INTO `post` (`id`, `user_id`, `type`, `title`, `description`, `location`, `created_datetime`, `visible`) VALUES
+(1, 1, 'post', 'hello world', 'this is my start', 'somewhere', '2023-07-06 05:22:49', 1);
 
 -- --------------------------------------------------------
 
@@ -235,7 +250,7 @@ ALTER TABLE `bucket_list_item`
 -- AUTO_INCREMENT for table `event`
 --
 ALTER TABLE `event`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `image`
@@ -253,7 +268,7 @@ ALTER TABLE `notification`
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `user`

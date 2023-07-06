@@ -12,7 +12,7 @@ function if_active($potential_pages) {
 ?>
 
 <nav class="main-nav">
-    <a class="nav-icon <?php if_active(["index"]); ?>" href="?">
+    <a class="nav-icon <?php if_active(["timeline"]); ?>" href="?">
         <i class="material-icons">home</i>
     </a>
     <a class="nav-icon <?php if_active(["search"]); ?>" href="?p=search">
