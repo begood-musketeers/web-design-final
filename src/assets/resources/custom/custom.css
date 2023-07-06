@@ -6,6 +6,11 @@ html, body {
   font-family: Roboto, sans-serif;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 
 
 /* NAVBAR */
@@ -16,16 +21,21 @@ html, body {
   position: fixed;
   bottom: 0;
   left: 0;
+  background: #fff;
 }
 .nav-icon {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 75px;
-  width: 75px;
+  height: 66px;
+  width: 66px;
   color: #0066cc;
   background: #fff;
   text-decoration: none;
+}
+.nav-icon:hover {
+  background-color: #0066cc99;
+  color: #fff;
 }
 .nav-icon .material-icons {
   font-size: 40px;

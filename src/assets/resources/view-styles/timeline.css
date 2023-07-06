@@ -8,18 +8,53 @@ timeline {
 
 posts {
   display:flex;
-  justify-content:flex-start;
+  justify-content:center;
   align-items:flex-start;
+  align-content: flex-start;
+  flex-wrap: wrap;
   width:100%;
-  max-width:800px;
   height:100%;
-  scrollbar-width: thin;
+  scrollbar-width: none;
   overflow-y: scroll;
-  border-left:8px solid #f2f2f2;
 }
 
 item {
   display: block;
-  width: 100%;
+  width:100%;
+  min-width: 86%;
+  max-width:620px;
   height: fit-content;
+  box-shadow: 0px 0px 5px rgba(0,0,0,0.3);
+  margin: 30px 200px 0px 200px;
+}
+
+item-title {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 15px;
+}
+
+item-description {
+  display: block;
+  padding: 0 15px 15px 15px;
+}
+
+item-stats {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+item-stat {
+  width: 60px;
+  display: flex;
+  height: 60px;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.item-pfp {
+  margin-right:15px;
+  background:#000
 }
