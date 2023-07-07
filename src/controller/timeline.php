@@ -23,11 +23,17 @@ switch ($request) {
   case 'like':
     $id = sanitise($_POST['id']);
     $type = sanitise($_POST['type']);
-    $result = LikeDB::like_object($id, $type);
-    if ($result) {
-      $likes = LikeDB::get_likes($id, $type);
-      echo $likes;
-    }
+    LikeDB::like_object($id, $type);
+    $likes = LikeDB::get_likes($id, $type);
+    echo $likes;
+    exit;
+    break;
+  case 'unlike':
+    $id = sanitise($_POST['id']);
+    $type = sanitise($_POST['type']);
+    LikeDB::unlike_object($id, $type);
+    $likes = LikeDB::get_likes($id, $type);
+    echo $likes;
     exit;
     break;
 

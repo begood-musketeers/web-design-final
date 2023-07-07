@@ -19,8 +19,8 @@ class PostDB {
       GROUP_CONCAT(DISTINCT image.file_name) AS image_file_names
     FROM post
       JOIN user ON user.id = post.user_id
-      LEFT JOIN user_like ON user_like.object_id = post.id
-      LEFT JOIN comment ON comment.object_id = post.id
+      LEFT JOIN user_like ON user_like.object_id = post.id AND user_like.object_type = 'post'
+      LEFT JOIN comment ON comment.object_id = post.id AND comment.object_type = 'post'
       LEFT JOIN image ON image.object_id = post.id AND image.object_type = 'post'
     WHERE post.visible = 1
     GROUP BY post.id
@@ -28,6 +28,18 @@ class PostDB {
     LIMIT $amount
     ";
     $result = $db->fetch_multiple($sql);
+
+    // for each post, check if given user has liked it
+    $user_id = $_SESSION['user_id'];
+    foreach ($result as $key => $post) {
+      $post_id = $post['id'];
+      $sql = "
+      SELECT COUNT(*) AS liked FROM user_like
+      WHERE user_id = $user_id AND object_id = $post_id AND object_type = 'post'
+      ";
+      $liked = $db->fetch($sql);
+      $result[$key]['liked'] = $liked['liked'];
+    }
 
     return $result;
   }
