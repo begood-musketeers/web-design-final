@@ -5,6 +5,6 @@ import("assets/resources/material-icons/material-icons.min.css");
 import("assets/resources/custom/custom.css");
 import("assets/resources/custom/carousel.css");
 
-// per page
+// per view
 import("assets/resources/view-styles/create.css");
 import("assets/resources/view-styles/timeline.css");

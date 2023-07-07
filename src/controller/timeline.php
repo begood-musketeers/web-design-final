@@ -1,6 +1,7 @@
 <?php
 include("model/post_db.php");
 include("model/event_db.php");
+include("model/like_db.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request'])) {
   $request = sanitise($_POST['request']);
@@ -18,6 +19,15 @@ switch ($request) {
     usort($content, function($a, $b) {
       return $b['created_datetime'] <=> $a['created_datetime'];
     });
+    break;
+  case 'like':
+    $id = sanitise($_POST['id']);
+    $type = sanitise($_POST['type']);
+    $result = LikeDB::like_object($id, $type);
+    if ($result) {
+      $likes = LikeDB::get_likes($id, $type);
+      echo $likes;
+    }
     break;
 
   default:

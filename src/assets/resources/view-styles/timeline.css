@@ -63,3 +63,7 @@ item-stat {
     min-width: 86%;
   }
 }
+
+.liked {
+  color: #ff0000;
+}

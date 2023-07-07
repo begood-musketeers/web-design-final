@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Jul 06, 2023 at 09:28 AM
+-- Generation Time: Jul 07, 2023 at 08:07 AM
 -- Server version: 8.0.33
 -- PHP Version: 8.1.20
 
@@ -57,8 +57,16 @@ CREATE TABLE `comment` (
   `user_id` int NOT NULL,
   `object_id` int NOT NULL,
   `object_type` enum('post','recommendation','bucket_list') NOT NULL,
-  `content` varchar(256) NOT NULL
+  `content` varchar(256) NOT NULL,
+  `created_datetime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `comment`
+--
+
+INSERT INTO `comment` (`user_id`, `object_id`, `object_type`, `content`, `created_datetime`) VALUES
+(1, 1, 'post', 'this is comment', '2023-07-06 10:06:51');
 
 -- --------------------------------------------------------
 
@@ -71,8 +79,8 @@ CREATE TABLE `event` (
   `user_id` int NOT NULL,
   `title` varchar(256) NOT NULL,
   `description` varchar(1024) NOT NULL,
-  `type` enum('sports','cinema','hangout','games') NOT NULL,
-  `location` varchar(256) NOT NULL,
+  `type` enum('sports','cinema','hangout','games','amusement park') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `location` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `start_datetime` datetime NOT NULL,
   `created_datetime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `visible` tinyint NOT NULL DEFAULT '0'
@@ -83,7 +91,8 @@ CREATE TABLE `event` (
 --
 
 INSERT INTO `event` (`id`, `user_id`, `title`, `description`, `type`, `location`, `start_datetime`, `created_datetime`, `visible`) VALUES
-(1, 1, 'test event', 'this is event', 'sports', 'event place', '2023-07-06 09:07:27', '2023-07-06 09:07:47', 0);
+(1, 1, 'test event', 'this is event', 'sports', 'event place', '2023-07-06 09:07:27', '2023-07-06 09:07:47', 1),
+(2, 1, 'Visit Hello Kitty land :D', 'This Sunday (09-07-23) we will be going to Hello Kitty land with our share house.\r\n\r\nWe will leave at 12:00 from Toyocho station. Be sure to bring your own food and buy your own ticket before hand at: https://hellokitty.com/tickets', 'amusement park', 'https://www.google.com/maps/place/Yomiuri+Land/@35.6191805,139.51482,15.11z/data=!4m10!1m2!2m1!1syomiuri+land!3m6!1s0x6018fa887471f1f7:0xe782eba55f33f953!8m2!3d35.6249403!4d139.5175677!15sCgx5b21pdXJpIGxhbmRaDiIMeW9taXVyaSBsYW5kkgEOYW11c2VtZW50X3BhcmvgAQA!16s%2Fm%2F04ydpcz?entry=ttu', '2023-07-07 07:42:13', '2023-07-07 07:45:43', 1);
 
 -- --------------------------------------------------------
 
@@ -109,6 +118,18 @@ CREATE TABLE `image` (
   `file_name` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dumping data for table `image`
+--
+
+INSERT INTO `image` (`id`, `object_id`, `object_type`, `file_name`) VALUES
+(1, 1, 'post', 'cat.jpg'),
+(2, 1, 'post', 'dog.jpg'),
+(3, 1, 'event', 'schiphol.jpg'),
+(4, 2, 'event', 'hello_kitty.jpg'),
+(5, 2, 'event', 'hello_kitty_2.jpg'),
+(6, 2, 'event', 'hello_kitty_3.jpg');
+
 -- --------------------------------------------------------
 
 --
@@ -132,9 +153,9 @@ CREATE TABLE `notification` (
 CREATE TABLE `post` (
   `id` int NOT NULL,
   `user_id` int NOT NULL,
+  `title` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `description` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `type` enum('post','recommendation') NOT NULL,
-  `title` varchar(256) NOT NULL,
-  `description` varchar(1024) NOT NULL,
   `location` varchar(256) NOT NULL,
   `created_datetime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `visible` tinyint NOT NULL DEFAULT '0'
@@ -144,8 +165,8 @@ CREATE TABLE `post` (
 -- Dumping data for table `post`
 --
 
-INSERT INTO `post` (`id`, `user_id`, `type`, `title`, `description`, `location`, `created_datetime`, `visible`) VALUES
-(1, 1, 'post', 'hello world', 'this is my start', 'somewhere', '2023-07-06 05:22:49', 1);
+INSERT INTO `post` (`id`, `user_id`, `title`, `description`, `type`, `location`, `created_datetime`, `visible`) VALUES
+(1, 1, 'hello world', 'this is my start', 'post', 'somewhere', '2023-07-06 05:22:49', 1);
 
 -- --------------------------------------------------------
 
@@ -157,8 +178,15 @@ CREATE TABLE `user` (
   `id` int NOT NULL,
   `username` varchar(32) NOT NULL,
   `password` varchar(512) NOT NULL,
-  `role` enum('student','buddy','admin','') NOT NULL
+  `role` enum('student','buddy','admin') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `username`, `password`, `role`) VALUES
+(1, '1Dalon', 'lknsglksnglfsnmglksfnm', 'student');
 
 -- --------------------------------------------------------
 
@@ -171,6 +199,13 @@ CREATE TABLE `user_like` (
   `object_id` int NOT NULL,
   `object_type` enum('post','recommendation','bucket_list') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `user_like`
+--
+
+INSERT INTO `user_like` (`user_id`, `object_id`, `object_type`) VALUES
+(1, 1, 'post');
 
 --
 -- Indexes for dumped tables
@@ -250,13 +285,13 @@ ALTER TABLE `bucket_list_item`
 -- AUTO_INCREMENT for table `event`
 --
 ALTER TABLE `event`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `notification`
@@ -274,7 +309,7 @@ ALTER TABLE `post`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

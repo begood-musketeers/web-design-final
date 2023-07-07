@@ -11,14 +11,18 @@ include_once("controller/timeline.php");
     <?php
 
     foreach ($content as $item) {
+      $type = (isset($item['start_datetime'])) ? 'event' : 'post';
 
       $images = explode(',', $item['image_file_names']);
       $images_html = '';
       $image_int = 0;
+      $image_count = count($images);
       foreach ($images as $image) {
         $checked = ($image_int == 0) ? 'checked="checked"' : '';
+        $show_bullets = ($image_count == 1) ? 'style="display:none"' : '';
+
         $images_html .= '
-          <input type="radio" name="p-' . $item['id'] . '' . $item['type'] . '" id="p-' . $item['id'] . '-item-' . $image_int . '" class="slideshow--bullet" ' . $checked . ' />
+          <input type="radio" name="p-' . $item['id'] . '' . $type . '" id="p-' . $item['id'] . '-item-' . $image_int . '" class="slideshow--bullet" ' . $checked . ' ' . $show_bullets . ' />
           <div class="slideshow--item">
             <img src="assets/uploads/' . $image . '" style="max-width:100%;max-height:100%">
           </div>
@@ -45,13 +49,19 @@ include_once("controller/timeline.php");
 
         <div>
           <item-stats>
-            <item-stat><span class="material-icons">favorite</span> ' . $item['likes'] . '</item-stat>
-            <item-stat><span class="material-icons">comment</span> ' . $item['comments'] . '</item-stat>
+            <item-stat onclick="like(' . $item['id'] . ',\'' . $type . '\')">
+              <span class="material-icons">favorite</span>
+              <span id="l-' . $item['id'] . '' . $type . '">' . $item['likes'] . '</span>
+            </item-stat>
+            <item-stat>
+              <span class="material-icons">comment</span> ' . $item['comments'] . '
+            </item-stat>
           </item-stats>
 
           <item-description>
             <p>' . $item['title'] . '</p>
-            <p>' . $item['description'] . '</p>
+            <br>
+            <p>' . substr($item['description'], 0, 100) . '...</p>
           </item-description>
         </div>
 
@@ -62,7 +72,7 @@ include_once("controller/timeline.php");
 
     ?>
 
-    <br><br><br><br><br><br><br>
+    <div style="opacity:0;height:200px;width:100%;">end of the feed</div>
   </posts>
 </timeline>
 
