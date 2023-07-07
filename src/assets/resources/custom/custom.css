@@ -15,6 +15,31 @@ p {
   line-height: 20px;
 }
 
+input[type="text"] {
+  border-radius: 5px;
+  border: 1px solid #9196ff;
+  padding: 10px;
+  font-size: 1rem;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: #ff7dff;
+}
+
+select {
+  border-radius: 5px;
+  border: 1px solid #9196ff;
+  background-color: #fff;
+  padding: 10px;
+  font-size: 1rem;
+}
+
+select:focus {
+  outline: none;
+  border-color: #ff7dff;
+}
+
 
 
 /* NAVBAR */
@@ -25,6 +50,7 @@ p {
   position: fixed;
   bottom: 0;
   left: 0;
+  z-index: 100;
   background: #fff;
   box-shadow: 0px 0px 10px rgba(0,0,0,0.15);
 }
@@ -71,6 +97,10 @@ h2 {
   text-align: center;
 }
 
+.text-white {
+  color: #fff;
+}
+
 
 
 /* BONES */
@@ -78,6 +108,7 @@ h2 {
   padding:20px;
   border-radius: 5px;
   overflow: hidden;
+  background: #fff;
 }
 .flex-center {
   display:flex;
@@ -87,4 +118,30 @@ h2 {
 
 .shadow {
   box-shadow: 0px 0px 5px rgba(0,0,0,0.3);
+}
+
+.gradient-a {
+  background: rgb(186,189,255);
+  background: linear-gradient(144deg, rgba(186,189,255,1) 0%, rgba(255,226,255,1) 61%, rgba(208,255,234,1) 100%); 
+}
+
+.background-a {
+  background-color: #9196ff;
+}
+
+.background-b {
+  background-color: #ff7dff;
+}
+
+hr {
+  border-color: #9196ff;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.btn {
+  padding:10px;
+  border-radius: 5px;
 }

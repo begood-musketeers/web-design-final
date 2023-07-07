@@ -17,7 +17,6 @@ function login() {
       var response = JSON.parse(this.responseText)
   
       if (response.state == "success") {
-        alert(this.responseText)
         window.location.href = "."
       } else {
         document.getElementById("error").innerHTML = response.message
