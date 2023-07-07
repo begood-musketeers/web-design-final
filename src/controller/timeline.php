@@ -28,6 +28,7 @@ switch ($request) {
       $likes = LikeDB::get_likes($id, $type);
       echo $likes;
     }
+    exit;
     break;
 
   default:

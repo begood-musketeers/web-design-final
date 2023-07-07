@@ -59,6 +59,23 @@ if ($serve_resources)
   // INCLUDE AFTERLOAD
   echo "<project-scripts>";
   include("_config/resource-afterload.php");
+
+  // include page specific js
+  if (file_exists("assets/resources/view-js/" . $page . ".js"))
+  {
+    echo '
+      <script src="assets/resources/view-js/' . $page . '.js"></script>
+    ';
+  }
+
+  // include page specific css
+  if (file_exists("assets/resources/view-styles/" . $page . ".css"))
+  {
+    echo '
+      <link rel="stylesheet" href="assets/resources/view-styles/' . $page . '.css">
+    ';
+  }
+
   echo "</project-scripts>";
 
   // SERVE META MATERIAL
