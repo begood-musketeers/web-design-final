@@ -68,7 +68,7 @@ function sanitise($input) {
 function timeago($date) {
   $timestamp = strtotime($date);	
   
-  $strTime = array("second", "minute", "hour", "day", "month", "year");
+  $strTime = array("s", "m", "h", "d", "m", "y");
   $length = array("60","60","24","30","12","10");
 
   $currentTime = time();
@@ -79,6 +79,6 @@ function timeago($date) {
    }
 
    $diff = round($diff);
-   return $diff . " " . $strTime[$i] . "(s) ago ";
+   return $diff . $strTime[$i];
   }
 }

@@ -14,6 +14,10 @@ switch ($request) {
     $events = EventDB::get_latest(50);
 
     $content = array_merge($posts, $events);
+    // sort by created_datetime
+    usort($content, function($a, $b) {
+      return $b['created_datetime'] <=> $a['created_datetime'];
+    });
     break;
 
   default:
