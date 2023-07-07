@@ -65,11 +65,13 @@ include_once("controller/timeline.php");
             </item-stat>
           </item-stats>
 
-          <item-description>
-            <p>' . $item['title'] . '</p>
-            <br>
-            <p>' . substr($item['description'], 0, 100) . '...</p>
-          </item-description>
+          <a href="?p=' . $type . '&id=' . $item['id'] . '">
+            <item-description>
+              <p>' . $item['title'] . '</p>
+              <br>
+              <p>' . substr($item['description'], 0, 100) . '...</p>
+            </item-description>
+          </a>
         </div>
 
       </item>
