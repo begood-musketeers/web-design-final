@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Jul 07, 2023 at 08:07 AM
+-- Generation Time: Jul 07, 2023 at 10:22 AM
 -- Server version: 8.0.33
 -- PHP Version: 8.1.20
 
@@ -177,6 +177,9 @@ INSERT INTO `post` (`id`, `user_id`, `title`, `description`, `type`, `location`,
 CREATE TABLE `user` (
   `id` int NOT NULL,
   `username` varchar(32) NOT NULL,
+  `email` varchar(512) NOT NULL,
+  `security_question_id` int NOT NULL,
+  `security_question_answer` varchar(256) NOT NULL,
   `password` varchar(512) NOT NULL,
   `role` enum('student','buddy','admin') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -185,8 +188,8 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `username`, `password`, `role`) VALUES
-(1, '1Dalon', 'lknsglksnglfsnmglksfnm', 'student');
+INSERT INTO `user` (`id`, `username`, `email`, `security_question_id`, `security_question_answer`, `password`, `role`) VALUES
+(1, '1Dalon', 'dalonmusic@gmail.com', 2, 'black', '$2y$10$D7MddhXPcRAkJBZVLKCA1eWjxe.l4NSnDUuFLBWopkTsfV9OMRnja', 'student');
 
 -- --------------------------------------------------------
 
@@ -197,7 +200,7 @@ INSERT INTO `user` (`id`, `username`, `password`, `role`) VALUES
 CREATE TABLE `user_like` (
   `user_id` int NOT NULL,
   `object_id` int NOT NULL,
-  `object_type` enum('post','recommendation','bucket_list') NOT NULL
+  `object_type` enum('post','event','bucket_list') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
@@ -205,7 +208,9 @@ CREATE TABLE `user_like` (
 --
 
 INSERT INTO `user_like` (`user_id`, `object_id`, `object_type`) VALUES
-(1, 1, 'post');
+(1, 1, 'post'),
+(1, 1, 'event'),
+(1, 2, 'event');
 
 --
 -- Indexes for dumped tables
