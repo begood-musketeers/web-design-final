@@ -74,8 +74,17 @@ h2 {
 
 
 /* BONES */
+.card {
+  padding:20px;
+  border-radius: 5px;
+  overflow: hidden;
+}
 .flex-center {
   display:flex;
   align-items:center;
   justify-content:center;
+}
+
+.shadow {
+  box-shadow: 0px 0px 5px rgba(0,0,0,0.3);
 }
