@@ -15,14 +15,14 @@ p {
   line-height: 20px;
 }
 
-input[type="text"], input[type="password"] {
+input[type="text"], input[type="password"], textarea {
   border-radius: 5px;
   border: 1px solid #9196ff;
   padding: 10px;
   font-size: 1rem;
 }
 
-input[type="text"]:focus, input[type="password"]:focus {
+input[type="text"]:focus, input[type="password"]:focus, textarea:focus {
   outline: none;
   border-color: #ff7dff;
 }
@@ -144,4 +144,8 @@ hr {
 .btn {
   padding:10px;
   border-radius: 5px;
+}
+
+.hidden {
+  display: none;
 }

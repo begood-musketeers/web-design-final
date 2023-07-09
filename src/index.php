@@ -33,11 +33,18 @@ if ($serve_resources)
     <head>
       <meta charset="utf-8">
       <meta content="initial-scale=1, shrink-to-fit=no, width=device-width" name="viewport">
-      <!-- _config 3.8 -->
   ';
 
   // INCLUDE PRELOAD
   include("_config/resource-preload.php");
+
+  // include page specific css
+  if (file_exists("assets/resources/view-styles/" . $page . ".css"))
+  {
+    echo '
+      <link rel="stylesheet" href="assets/resources/view-styles/' . $page . '.css">
+    ';
+  }
 }
 
 // SERVE VIEW
@@ -65,14 +72,6 @@ if ($serve_resources)
   {
     echo '
       <script src="assets/resources/view-js/' . $page . '.js"></script>
-    ';
-  }
-
-  // include page specific css
-  if (file_exists("assets/resources/view-styles/" . $page . ".css"))
-  {
-    echo '
-      <link rel="stylesheet" href="assets/resources/view-styles/' . $page . '.css">
     ';
   }
 

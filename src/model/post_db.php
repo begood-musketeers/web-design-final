@@ -73,9 +73,30 @@ class PostDB {
     return [$post, $comments, $likes];
   }
 
-  public static function create($user_id, $type, $title, $description, $location, $visible) {
+  public static function create($title, $description, $location) {
     $db = new SimpleDB('xsn');
-    $sql = "INSERT INTO post (user_id, type, title, description, location, visible) VALUES ($user_id, '$type', '$title', '$description', '$location', $visible)";
+    $user_id = $_SESSION['user_id'];
+    $sql = "
+    INSERT INTO post (user_id, type, title, description, location, visible)
+    VALUES ($user_id, 'post', '$title', '$description', '$location', 1)
+    ";
+    $result = $db->query($sql);
+
+    $sql = "
+    SELECT id FROM post 
+    WHERE user_id = $user_id AND type = 'post' AND title = '$title' AND description = '$description' AND location = '$location'
+    ORDER BY id DESC LIMIT 1";
+    $new_id = $db->fetch($sql)['id'];
+
+    return json_encode(['state' => 'success', 'post_id' => $new_id]);
+  }
+
+  public static function add_image($post_id, $file_name) {
+    $db = new SimpleDB('xsn');
+    $sql = "
+    INSERT INTO image (object_id, object_type, file_name)
+    VALUES ($post_id, 'post', '$file_name')
+    ";
     $result = $db->query($sql);
 
     return $result;
@@ -92,6 +113,7 @@ class PostDB {
 
     // delete all likes
     $sql = "DELETE FROM user_like WHERE object_id = $post_id AND object_type = 'post'";
+    $result = $db->query($sql);
 
     return $result;
   }
