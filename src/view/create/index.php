@@ -13,7 +13,7 @@ $page_description = "Post on XSN";
         <h2>new post</h2>
       </create-option-left>
       <create-option-right>
-        <a href="?p=new_post&t=0">
+        <a href="?p=new_post">
           <create-option-block>
             <span class="material-icons">signpost</span>
           </create-option-block>
@@ -39,7 +39,7 @@ $page_description = "Post on XSN";
         <h2>new recommendation</h2>
       </create-option-left>
       <create-option-right>
-        <a href="?p=new_post&t=1">
+        <a href="?p=new_recommendation">
           <create-option-block>
             <span class="material-icons">place</span>
           </create-option-block>

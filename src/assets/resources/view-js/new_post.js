@@ -15,6 +15,9 @@ function share() {
     return
   }
 
+  document.getElementById("post-form").style.display = "none"
+  document.getElementById("loader").style.display = "grid"
+
   var xhttp = new XMLHttpRequest()
   xhttp.open("POST", "", true)
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
@@ -23,14 +26,16 @@ function share() {
     if (this.responseText != "") {
       var response = JSON.parse(this.responseText)
   
-      if (response.state == "success") {
+      if (response.state == "success") {        
         // post every image form to the hidden iframe
         var image_forms = document.getElementsByClassName("image-input")
         for (var i = 0; i < image_forms.length; i++) {
           setTimeout(post_form, 500 * i, image_forms, i, response.post_id)
         }
 
-        // window.location.href = "."
+        setTimeout(function() {
+          window.location.href = "."
+        }, 500 * image_forms.length)
       } else {
         document.getElementById("error").innerHTML = response.message
         document.getElementById("error").style.display = "block"

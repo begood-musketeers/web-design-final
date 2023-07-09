@@ -77,8 +77,8 @@ class PostDB {
     $db = new SimpleDB('xsn');
     $user_id = $_SESSION['user_id'];
     $sql = "
-    INSERT INTO post (user_id, type, title, description, location)
-    VALUES ($user_id, 'post', '$title', '$description', '$location')
+    INSERT INTO post (user_id, type, title, description, location, visible)
+    VALUES ($user_id, 'post', '$title', '$description', '$location', 1)
     ";
     $result = $db->query($sql);
 

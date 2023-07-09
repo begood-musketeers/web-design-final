@@ -6,7 +6,7 @@ include_once("controller/post.php");
 ?>
 
 <div class="gradient-a flex-center" style="height:100%;width:100%">
-  <div class="card shadow" style="width:100%;max-width:400px">
+  <div id="post-form" class="card shadow" style="width:100%;max-width:400px">
     <h1 class="text-center">new post</h1><br><br>
 
     <input type="text" id="title" name="title" placeholder="title" style="width:calc(100% - 20px)"><br><br>
@@ -25,6 +25,8 @@ include_once("controller/post.php");
 
     <span class="btn background-a text-white text-center pointer" onclick="share()" style="width:calc(100% - 20px);display:block">share</span>
   </div>
+
+  <div id="loader" class="spinner" style="display:none"></div>
 </div>
 
 <?php include_once("view/partial_navbar.php"); ?>

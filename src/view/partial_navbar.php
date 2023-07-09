@@ -9,6 +9,8 @@ function if_active($potential_pages) {
     }
   }
 }
+
+if (isset($_SESSION['loggedin'])) {
 ?>
 
 <nav class="main-nav">
@@ -28,3 +30,7 @@ function if_active($potential_pages) {
         <i class="material-icons">person</i>
     </a>
 </nav>
+
+<?php
+}
+?>
