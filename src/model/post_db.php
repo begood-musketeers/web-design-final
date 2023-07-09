@@ -30,7 +30,7 @@ class PostDB {
     $result = $db->fetch_multiple($sql);
 
     // for each post, check if given user has liked it
-    $user_id = $_SESSION['user_id'];
+    $user_id = (isset($_SESSION['user_id'])) ? $_SESSION['user_id'] : -1;
     foreach ($result as $key => $post) {
       $post_id = $post['id'];
       $sql = "
