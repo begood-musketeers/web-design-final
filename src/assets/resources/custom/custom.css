@@ -15,14 +15,14 @@ p {
   line-height: 20px;
 }
 
-input[type="text"], input[type="password"], textarea {
+input[type="text"], input[type="password"], input[type="email"], textarea {
   border-radius: 5px;
   border: 1px solid #9196ff;
   padding: 10px;
   font-size: 1rem;
 }
 
-input[type="text"]:focus, input[type="password"]:focus, textarea:focus {
+input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, textarea:focus {
   outline: none;
   border-color: #ff7dff;
 }
@@ -110,6 +110,28 @@ h2 {
   overflow: hidden;
   background: #fff;
 }
+
+.part-left, .part-right {
+  width:50%;
+  height:100%;
+}
+.part-left {
+  float:left;
+}
+.part-right {
+  float:right;
+}
+
+/* parts become full width with screen size smaller then 900px */
+@media (max-width: 900px) {
+  .part-left, .part-right {
+    width:100%;
+  }
+  .part-right {
+    margin-top: 20px;
+  }
+}
+
 .flex-center {
   display:flex;
   align-items:center;
