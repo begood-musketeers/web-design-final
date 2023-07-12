@@ -6,15 +6,13 @@ include_once("controller/auth.php");
 ?>
 
 <div class="gradient-a flex-center" style="height:100%;width:100%">
-  <div class="card shadow" style="width:100%;max-width:800px">
+  <div class="card shadow" style="width:100%;max-width:800px;margin:20px">
     <h1>Create an account</h1><br>
     <form action="controller" method="post">
       <input type="text" id="username" name="username" placeholder="username"><br><br>
       <input type="password" id="password" name="password" placeholder="password" style="margin-right:10px">
       <input type="password" id="password_confirm" name="password_confirm" placeholder="password confirm"><br><br>
       <input type="email" id="email" name="email" placeholder="@email"><br><br>
-
-      <hr><br>
 
       <select id="security_question_id" name="security_question_id">
         <option disabled selected value> -- Security Question -- </option>
