@@ -28,10 +28,7 @@ function share() {
   
       if (response.state == "success") {        
         // post every image form to the hidden iframe
-        var image_forms = document.getElementsByClassName("image-input")
-        for (var i = 0; i < image_forms.length; i++) {
-          setTimeout(post_form, 500 * i, image_forms, i, response.post_id)
-        }
+        post_form(0, response.post_id)
 
         setTimeout(function() {
           window.location.href = "."
@@ -45,7 +42,16 @@ function share() {
   }
 }
 
-function post_form(image_forms, i, post_id) {
+function post_form(i, post_id) {
+  var image_forms = document.getElementsByClassName("image-input")
+  var frame = document.getElementById("image_upload_target")
+
+  frame.onload = function() {
+    if (i < image_forms.length - 1) {
+      post_form(i + 1, post_id)
+    }
+  }
+
   image_forms[i].elements["post_id"].value = post_id
   image_forms[i].submit()
 }
