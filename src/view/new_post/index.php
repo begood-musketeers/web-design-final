@@ -21,7 +21,7 @@ include_once("controller/post.php");
       </image-add>
     </div>
 
-    <div role="alert" id="error" style="display:none;padding:20px;background:#ff000033;margin-bottom:10px"></div>
+    <div role="alert" id="error" style="display:none;padding:20px;background:#ff000033;margin-bottom:20px"></div>
 
     <span class="btn background-a text-white text-center pointer" onclick="share()" style="width:calc(100% - 20px);display:block">share</span>
   </div>
