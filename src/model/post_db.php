@@ -92,6 +92,19 @@ class PostDB {
   }
 
   public static function add_image($post_id, $file_name) {
+    // check if user is owner of post
+    $db = new SimpleDB('xsn');
+    $user_id = $_SESSION['user_id'];
+    $sql = "
+    SELECT COUNT(*) AS count FROM post
+    WHERE id = $post_id AND user_id = $user_id
+    ";
+    $result = $db->fetch($sql);
+
+    if ($result['count'] == 0) {
+      return json_encode(['state' => 'error', 'message' => 'You are not the owner of this post.']);
+    }
+
     $db = new SimpleDB('xsn');
     $sql = "
     INSERT INTO image (object_id, object_type, file_name)
