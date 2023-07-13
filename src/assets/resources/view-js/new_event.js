@@ -57,7 +57,7 @@ function post_form(i, event_id) {
     if (i < image_forms.length - 1) {
       post_form(i + 1, event_id)
     } else {
-      // window.location.href = "."
+      window.location.href = "."
     }
   }
 
