@@ -29,6 +29,7 @@ switch ($request) {
     echo $likes;
     exit;
     break;
+  case 'add_comment':
 
   default:
     break;

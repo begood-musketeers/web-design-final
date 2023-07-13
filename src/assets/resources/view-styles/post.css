@@ -31,6 +31,21 @@ item-stat {
   align-items: center;
 }
 
+.comment {
+  display:flex;
+  justify-content:space-between;
+}
+
+.comment-content {
+  display: flex;
+  align-items: center;
+}
+
+.comment-user {
+  display:flex;
+  align-items:center;
+}
+
 @media (max-width: 990px) {
   .info {
     min-width: 86%;

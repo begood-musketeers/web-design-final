@@ -42,16 +42,20 @@ if (isset($_SESSION['loggedin'])) {
 <br><br>
 
 <div class="info">
+  <!-- user info -->
   <a class="card info-profile" href="?p=profile&u=<?= $post['username']; ?>">
     <img src="assets/pfp/<?= $post['username']; ?>" height="50" width="50" class="info-pfp">
     <?= $post['username']; ?> • <?= timeago($post['created_datetime']); ?>
   </a>
+
+  <!-- images -->
   <div class="flex-center">
     <div class="slideshow big" data-transition="fade">
       <?= $images_html; ?>
     </div>
   </div>
 
+  <!-- like and comment counts -->
   <item-stats style="margin-left:8px">
     <item-stat <?= $like_tag ?>>
       <span class="material-icons">favorite</span>
@@ -62,15 +66,49 @@ if (isset($_SESSION['loggedin'])) {
     </item-stat>
   </item-stats>
 
-  <div class="card">
-    <div class="info-title">
+  <!-- general post info -->
+  <div class="card" style="padding-top:0px">
+    <div>
       <?= $post['title']; ?>
     </div>
-    <div class="info-description">
+    <div>
       <?= $post['description']; ?>
     </div>
   </div>
-    
+
+  <!-- comment input and submit -->
+  <?php if (isset($_SESSION['loggedin'])) { ?>
+    <div class="card" style="padding-top:0px">
+      <div class="info-description">
+        <form class="flex-center" action="" method="post">
+          <input type="hidden" name="request" value="add_comment">
+          <input type="hidden" name="id" value="<?= $post['id']; ?>">
+          <input type="hidden" name="type" value="post">
+          <input type="text" name="comment" placeholder="Comment" class="input" style="width:100%;margin-right:10px">
+          <button type="submit" class="btn background-a text-white pointer" style="height:41px">
+            <span class="material-icons" style="font-size:21px">send</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  <?php } ?>
+
+  <!-- comments -->
+  <?php foreach ($comments as $comment) { ?>
+    <div class="card" style="padding-top:0px">
+      <div>
+        <a class="comment" href="?p=profile&u=<?= $comment['username']; ?>">
+          <span class="comment-user">
+            <img src="assets/pfp/<?= $comment['username']; ?>" height="35" width="35" class="info-pfp">
+            <?= $comment['username']; ?> • <?= timeago($comment['created_datetime']); ?>
+          </span>
+          <span class="comment-content"><?= $comment['content']; ?></span>
+        </a>
+      </div>
+    </div>
+  <?php } ?>
 </div>
+
+<br><br>
 
 <?php include_once("view/partial_navbar.php"); ?>

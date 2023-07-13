@@ -72,9 +72,11 @@ include_once("controller/timeline.php");
               <span class="material-icons">favorite</span>
               <span id="l-' . $item['id'] . '' . $type . '">' . $item['likes'] . '</span>
             </item-stat>
-            <item-stat>
-              <span class="material-icons">comment</span> ' . $item['comments'] . '
-            </item-stat>
+            <a href="?p=' . $type . '&id=' . $item['id'] . '">
+              <item-stat>
+                  <span class="material-icons">comment</span> ' . $item['comments'] . '
+                </item-stat>
+            </a>
           </item-stats>
 
           <a href="?p=' . $type . '&id=' . $item['id'] . '">

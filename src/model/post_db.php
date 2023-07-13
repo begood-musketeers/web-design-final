@@ -56,7 +56,7 @@ class PostDB {
 
     // get comments
     $sql = "
-    SELECT user.username, comment.content FROM comment
+    SELECT * FROM comment
     JOIN user ON user.id = comment.user_id
     WHERE comment.object_id = 1 AND comment.object_type = 'post'
     ORDER BY comment.created_datetime DESC
@@ -65,7 +65,7 @@ class PostDB {
 
     // get likes
     $sql = "
-    SELECT user.username FROM user_like
+    SELECT * FROM user_like
     JOIN user ON user.id = user_like.user_id
     WHERE user_like.object_id = 1 AND user_like.object_type = 'post'
     ";
