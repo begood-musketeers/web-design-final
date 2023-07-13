@@ -30,17 +30,59 @@ class EventDB {
     ";
     $result = $db->fetch_multiple($sql);
 
-    // for each post, check if given user has liked it
+    // for each event, check if given user has liked it
     $user_id = (isset($_SESSION['user_id'])) ? $_SESSION['user_id'] : -1;
-    foreach ($result as $key => $post) {
-      $post_id = $post['id'];
+    foreach ($result as $key => $event) {
+      $event_id = $event['id'];
       $sql = "
       SELECT COUNT(*) AS liked FROM user_like
-      WHERE user_id = $user_id AND object_id = $post_id AND object_type = 'event'
+      WHERE user_id = $user_id AND object_id = $event_id AND object_type = 'event'
       ";
       $liked = $db->fetch($sql);
       $result[$key]['liked'] = $liked['liked'];
     }
+
+    return $result;
+  }
+
+  public static function create($title, $description, $location, $type, $start_date, $end_date) {
+    $db = new SimpleDB('xsn');
+    $user_id = $_SESSION['user_id'];
+    $sql = "
+    INSERT INTO event (user_id, type, title, description, location, start_datetime, end_datetime, visible)
+    VALUES ($user_id, '$type', '$title', '$description', '$location', '$start_date', '$end_date', 1)
+    ";
+    $result = $db->query($sql);
+
+    $sql = "
+    SELECT id FROM event 
+    WHERE user_id = $user_id AND type = '$type' AND title = '$title' AND description = '$description' AND location = '$location'
+    ORDER BY id DESC LIMIT 1";
+    $new_id = $db->fetch($sql)['id'];
+
+    return json_encode(['state' => 'success', 'event_id' => $new_id]);
+  }
+  
+  public static function add_image($event_id, $file_name) {
+    // check if user is owner of event
+    $db = new SimpleDB('xsn');
+    $user_id = $_SESSION['user_id'];
+    $sql = "
+    SELECT COUNT(*) AS count FROM event
+    WHERE id = $event_id AND user_id = $user_id
+    ";
+    $result = $db->fetch($sql);
+
+    if ($result['count'] == 0) {
+      return json_encode(['state' => 'error', 'message' => 'You are not the owner of this event.']);
+    }
+
+    $db = new SimpleDB('xsn');
+    $sql = "
+    INSERT INTO image (object_id, object_type, file_name)
+    VALUES ($event_id, 'event', '$file_name')
+    ";
+    $result = $db->query($sql);
 
     return $result;
   }
