@@ -171,3 +171,7 @@ hr {
 .hidden {
   display: none;
 }
+
+.liked {
+  color: #ff0000;
+}

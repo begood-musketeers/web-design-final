@@ -52,7 +52,7 @@ class PostDB {
     WHERE visible = 1
     ORDER BY post.id DESC
     ";
-    $post = $db->fetch_single($sql);
+    $post = $db->fetch($sql);
 
     // get comments
     $sql = "
@@ -69,8 +69,24 @@ class PostDB {
     JOIN user ON user.id = user_like.user_id
     WHERE user_like.object_id = 1 AND user_like.object_type = 'post'
     ";
+    $likes = $db->fetch_multiple($sql);
 
-    return [$post, $comments, $likes];
+    // get images
+    $sql = "
+    SELECT file_name FROM image
+    WHERE object_id = 1 AND object_type = 'post'
+    ";
+    $images = $db->fetch_multiple($sql);
+
+    // check if user has liked post
+    $user_id = (isset($_SESSION['user_id'])) ? $_SESSION['user_id'] : -1;
+    $sql = "
+    SELECT COUNT(*) AS liked FROM user_like
+    WHERE user_id = $user_id AND object_id = 1 AND object_type = 'post'
+    ";
+    $liked = $db->fetch($sql)['liked'];
+
+    return [$post, $comments, $likes, $liked, $images];
   }
 
   public static function create($title, $description, $location) {

@@ -5,11 +5,9 @@ class LikeDB {
   public static function get_likes($id, $type) {
     $db = new SimpleDB('xsn');
     $sql = "
-    SELECT
-      COUNT(DISTINCT user_like.user_id) AS likes
-    FROM $type
-      LEFT JOIN user_like ON user_like.object_id = $type.id
-    WHERE $type.id = $id
+    SELECT COUNT(*) AS likes
+    FROM user_like
+    WHERE object_id = $id AND object_type = '$type'
     ";
     $result = $db->fetch($sql);
 
