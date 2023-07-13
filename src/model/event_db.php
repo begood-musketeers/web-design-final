@@ -3,7 +3,7 @@
 class EventDB {
 
   public static function get_latest($amount = 50) {
-    $db = new SimpleDB('xsn');
+        $db = SimpleDB::Singleton();
     $sql = "
     SELECT
       event.id,
@@ -46,7 +46,7 @@ class EventDB {
   }
 
   public static function create($title, $description, $location, $type, $start_date, $end_date) {
-    $db = new SimpleDB('xsn');
+        $db = SimpleDB::Singleton();
     $user_id = $_SESSION['user_id'];
     $sql = "
     INSERT INTO event (user_id, type, title, description, location, start_datetime, end_datetime, visible)
@@ -65,7 +65,7 @@ class EventDB {
   
   public static function add_image($event_id, $file_name) {
     // check if user is owner of event
-    $db = new SimpleDB('xsn');
+        $db = SimpleDB::Singleton();
     $user_id = $_SESSION['user_id'];
     $sql = "
     SELECT COUNT(*) AS count FROM event
@@ -77,7 +77,7 @@ class EventDB {
       return json_encode(['state' => 'error', 'message' => 'You are not the owner of this event.']);
     }
 
-    $db = new SimpleDB('xsn');
+        $db = SimpleDB::Singleton();
     $sql = "
     INSERT INTO image (object_id, object_type, file_name)
     VALUES ($event_id, 'event', '$file_name')

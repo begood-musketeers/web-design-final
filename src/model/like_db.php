@@ -3,7 +3,7 @@
 class LikeDB {
 
   public static function get_likes($id, $type) {
-    $db = new SimpleDB('xsn');
+        $db = SimpleDB::Singleton();
     $sql = "
     SELECT
       COUNT(DISTINCT user_like.user_id) AS likes
@@ -17,7 +17,7 @@ class LikeDB {
   }
 
   public static function like_object($id, $type) {
-    $db = new SimpleDB('xsn');
+        $db = SimpleDB::Singleton();
     $user_id = $_SESSION['user_id'];
     $sql = "
     INSERT INTO user_like (user_id, object_id, object_type)
@@ -27,7 +27,7 @@ class LikeDB {
   }
 
   public static function unlike_object($id, $type) {
-    $db = new SimpleDB('xsn');
+        $db = SimpleDB::Singleton();
     $user_id = $_SESSION['user_id'];
     $sql = "
     DELETE FROM user_like
