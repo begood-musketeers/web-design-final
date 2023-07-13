@@ -1,7 +1,10 @@
 <?php
 include ("model/user_db.php");
 
-if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]) {
+if (isset($_GET["u"])) {
+    $id = UserDB::find_user_id($_GET["u"]);
+    echo "id: " . json_encode($id);
+} else if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]) {
     $id = $_SESSION["user_id"];
 } else {
     http_response_code(403);

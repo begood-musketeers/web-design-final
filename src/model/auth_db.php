@@ -2,7 +2,7 @@
 
 class AuthDB {
   public static function register($username, $password, $password_confirm, $email, $security_question_id, $security_question_answer) {
-    $db = new SimpleDB('xsn');
+        $db = SimpleDB::Singleton();
   
     // check if username is taken
     $sql = "SELECT count(*) FROM user WHERE username = '$username'";
@@ -40,7 +40,7 @@ class AuthDB {
   }
   
   public static function login($username, $password) {
-    $db = new SimpleDB('xsn');
+        $db = SimpleDB::Singleton();
   
     $sql = "SELECT * FROM user WHERE username = '$username'";
     $result = $db->fetch($sql);

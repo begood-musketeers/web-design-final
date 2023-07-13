@@ -3,7 +3,7 @@
 class PostDB {
 
   public static function get_latest($amount = 50) {
-    $db = new SimpleDB('xsn');
+        $db = SimpleDB::Singleton();
     $sql = "
     SELECT
       post.id,
@@ -45,7 +45,7 @@ class PostDB {
   }
 
   public static function get($id) {
-    $db = new SimpleDB('xsn');
+        $db = SimpleDB::Singleton();
     $sql = "
     SELECT post.id, post.user_id, user.username, post.type, post.title, post.description, post.location, post.created_datetime FROM post
     JOIN user ON user.id = post.user_id
@@ -90,7 +90,7 @@ class PostDB {
   }
 
   public static function create($title, $description, $location) {
-    $db = new SimpleDB('xsn');
+        $db = SimpleDB::Singleton();
     $user_id = $_SESSION['user_id'];
     $sql = "
     INSERT INTO post (user_id, type, title, description, location, visible)
@@ -109,7 +109,7 @@ class PostDB {
 
   public static function add_image($post_id, $file_name) {
     // check if user is owner of post
-    $db = new SimpleDB('xsn');
+        $db = SimpleDB::Singleton();
     $user_id = $_SESSION['user_id'];
     $sql = "
     SELECT COUNT(*) AS count FROM post
@@ -121,7 +121,7 @@ class PostDB {
       return json_encode(['state' => 'error', 'message' => 'You are not the owner of this post.']);
     }
 
-    $db = new SimpleDB('xsn');
+        $db = SimpleDB::Singleton();
     $sql = "
     INSERT INTO image (object_id, object_type, file_name)
     VALUES ($post_id, 'post', '$file_name')
@@ -132,7 +132,7 @@ class PostDB {
   }
 
   public static function delete($post_id) {
-    $db = new SimpleDB('xsn');
+        $db = SimpleDB::Singleton();
     $sql = "DELETE FROM post WHERE id = $post_id";
     $result = $db->query($sql);
 
