@@ -19,6 +19,16 @@ class SimpleDB {
     mysqli_query($this->link, $sql);
   }
 
+  function query_prepared($sql, $types, ...$args) {
+    $stmt = $this->link->prepare($sql);
+    $stmt->bind_param($types, ...$args);
+
+    if(!$stmt->execute()) {
+        return null;
+    }
+    return $stmt->get_result();
+  }
+
   function query_multiple($sql) {
     mysqli_multi_query($this->link, $sql);
   }
