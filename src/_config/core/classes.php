@@ -15,6 +15,14 @@ class SimpleDB {
     );
   }
 
+  static $_singleton;
+    
+  public static function Singleton() {
+    if(SimpleDB::$_singleton == null)
+        SimpleDB::$_singleton = new SimpleDB('xsn');
+    return SimpleDB::$_singleton;
+  }
+
   function query($sql) {
     mysqli_query($this->link, $sql);
   }
