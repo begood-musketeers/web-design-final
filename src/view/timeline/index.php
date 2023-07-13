@@ -37,8 +37,16 @@ include_once("controller/timeline.php");
         $like_tag = 'onclick="like(' . $item['id'] . ',\'' . $type . '\')" class="pointer"';
       }
 
+      // if type is event add an icon
+      if ($type == 'event') {
+        $type_icon = '<span class="material-icons item-type-icon">event</span>';
+      } else {
+        $type_icon = '';
+      }
+
       echo '
       <item>
+        ' . $type_icon . '
         <a href="?p=profile&u=' . $item['username'] . '">
           <item-title>
             <img src="assets/pfp/' . $item['username'] . '" height="50" width="50" class="item-pfp">
