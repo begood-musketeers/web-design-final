@@ -1,0 +1,38 @@
+#images {
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  margin-bottom: 10px;
+}
+
+image-add {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  width:90px;
+  height:90px;
+  color:#fff;
+  background-color: #9196ff99;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+image-add:hover {
+  background-color: #9196ff;
+}
+
+image-add .material-icons {
+  font-size: 3rem;
+}
+
+.image-input {
+  display:block;
+  width:90px;
+  height:90px;
+  color:#fff;
+  background-color: #9196ff99;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
