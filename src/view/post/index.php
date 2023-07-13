@@ -28,37 +28,49 @@ foreach ($images as $image) {
 }
 
 // likes and comments counts
-if ($liked == 1) {
-  $like_tag = 'onclick="unlike(' . $post['id'] . ',\'post\')" class="pointer liked"';
+if (isset($_SESSION['loggedin'])) {
+  if ($liked == 1) {
+    $like_tag = 'onclick="unlike(' . $post['id'] . ',\'post\')" class="pointer liked"';
+  } else {
+    $like_tag = 'onclick="like(' . $post['id'] . ',\'post\')" class="pointer"';
+  }
 } else {
-  $like_tag = 'onclick="like(' . $post['id'] . ',\'post\')" class="pointer"';
+  $like_tag = 'onclick="login()" class="pointer"';
 }
 ?>
 
-<a class="card info-profile" href="?p=profile&u=<?= $post['username']; ?>">
-  <img src="assets/pfp/<?= $post['username']; ?>" height="50" width="50" class="info-pfp">
-  <?= $post['username']; ?> • <?= timeago($post['created_datetime']); ?>
-</a>
-<div class="flex-center">
-  <div class="slideshow big" data-transition="fade">
-    <?= $images_html; ?>
+<br><br>
+
+<div class="info">
+  <a class="card info-profile" href="?p=profile&u=<?= $post['username']; ?>">
+    <img src="assets/pfp/<?= $post['username']; ?>" height="50" width="50" class="info-pfp">
+    <?= $post['username']; ?> • <?= timeago($post['created_datetime']); ?>
+  </a>
+  <div class="flex-center">
+    <div class="slideshow big" data-transition="fade">
+      <?= $images_html; ?>
+    </div>
   </div>
-</div>
 
-<div class="flex-center">
+  <item-stats style="margin-left:8px">
+    <item-stat <?= $like_tag ?>>
+      <span class="material-icons">favorite</span>
+      <span id="l-<?= $post['id']; ?>post"><?= count($likes); ?></span>
+    </item-stat>
+    <item-stat>
+      <span class="material-icons">comment</span> <?= count($comments); ?>
+    </item-stat>
+  </item-stats>
 
-  <div class="card info">
-    <item-stats>
-      <item-stat <?= $like_tag ?>>
-        <span class="material-icons">favorite</span>
-        <span id="l-<?= $post['id']; ?>post"><?= count($likes); ?></span>
-      </item-stat>
-      <item-stat>
-        <span class="material-icons">comment</span> <?= count($comments); ?>
-      </item-stat>
-    </item-stats>
-
+  <div class="card">
+    <div class="info-title">
+      <?= $post['title']; ?>
+    </div>
+    <div class="info-description">
+      <?= $post['description']; ?>
+    </div>
   </div>
+    
 </div>
 
 <?php include_once("view/partial_navbar.php"); ?>

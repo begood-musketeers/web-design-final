@@ -31,10 +31,14 @@ include_once("controller/timeline.php");
       }
 
       // check if user has liked this post
-      if ($item['liked'] == 1) {
-        $like_tag = 'onclick="unlike(' . $item['id'] . ',\'' . $type . '\')" class="pointer liked"';
+      if (isset($_SESSION['loggedin'])) {
+        if ($item['liked'] == 1) {
+          $like_tag = 'onclick="unlike(' . $item['id'] . ',\'' . $type . '\')" class="pointer liked"';
+        } else {
+          $like_tag = 'onclick="like(' . $item['id'] . ',\'' . $type . '\')" class="pointer"';
+        }
       } else {
-        $like_tag = 'onclick="like(' . $item['id'] . ',\'' . $type . '\')" class="pointer"';
+        $like_tag = 'onclick="login()" class="pointer"';
       }
 
       // if type is event add an icon
@@ -76,7 +80,6 @@ include_once("controller/timeline.php");
           <a href="?p=' . $type . '&id=' . $item['id'] . '">
             <item-description>
               <p>' . $item['title'] . '</p>
-              <br>
               <p>' . substr($item['description'], 0, 100) . '...</p>
             </item-description>
           </a>
