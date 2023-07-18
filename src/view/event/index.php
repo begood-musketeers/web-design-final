@@ -1,14 +1,14 @@
 <?php
-include_once("controller/post.php");
+include_once("controller/event.php");
 
-$comments = $post[1];
-$likes = $post[2];
-$images = $post[4];
-$liked = $post[3];
-$post = $post[0];
+$comments = $event[1];
+$likes = $event[2];
+$images = $event[4];
+$liked = $event[3];
+$event = $event[0];
 
-$site_name .= " - " . $post['title'];
-$page_description = $post['description'];
+$site_name .= " - " . $event['title'];
+$page_description = $event['description'];
 
 
 // IMAGES ========================================
@@ -19,7 +19,7 @@ foreach ($images as $image) {
   $show_bullets = (count($images) == 1) ? 'style="display:none"' : '';
 
   $images_html .= '
-    <input type="radio" name="p-' . $post['id'] . 'post" id="p-' . $post['id'] . '-item-' . $image_int . '" class="slideshow--bullet" ' . $checked . ' ' . $show_bullets . ' />
+    <input type="radio" name="p-' . $event['id'] . 'event" id="p-' . $event['id'] . '-item-' . $image_int . '" class="slideshow--bullet" ' . $checked . ' ' . $show_bullets . ' />
     <div class="slideshow--item big">
       <img src="assets/uploads/' . $image['file_name'] . '" style="max-width:100%;max-height:100%">
     </div>
@@ -30,9 +30,9 @@ foreach ($images as $image) {
 // likes and comments counts
 if (isset($_SESSION['loggedin'])) {
   if ($liked == 1) {
-    $like_tag = 'onclick="unlike(' . $post['id'] . ',\'post\')" class="pointer liked"';
+    $like_tag = 'onclick="unlike(' . $event['id'] . ',\'event\')" class="pointer liked"';
   } else {
-    $like_tag = 'onclick="like(' . $post['id'] . ',\'post\')" class="pointer"';
+    $like_tag = 'onclick="like(' . $event['id'] . ',\'event\')" class="pointer"';
   }
 } else {
   $like_tag = 'onclick="login()" class="pointer"';
@@ -43,9 +43,9 @@ if (isset($_SESSION['loggedin'])) {
 
 <div class="info">
   <!-- user info -->
-  <a class="card info-profile" href="?p=profile&u=<?= $post['username']; ?>">
-    <img src="assets/pfp/<?= $post['username']; ?>" height="50" width="50" class="info-pfp">
-    <?= $post['username']; ?> • <?= timeago($post['created_datetime']); ?>
+  <a class="card info-profile" href="?p=profile&u=<?= $event['username']; ?>">
+    <img src="assets/pfp/<?= $event['username']; ?>" height="50" width="50" class="info-pfp">
+    <?= $event['username']; ?> • <?= timeago($event['created_datetime']); ?>
   </a>
 
   <!-- images -->
@@ -59,17 +59,17 @@ if (isset($_SESSION['loggedin'])) {
   <item-stats style="margin-left:8px">
     <item-stat <?= $like_tag ?>>
       <span class="material-icons">favorite</span>
-      <span id="l-<?= $post['id']; ?>post"><?= count($likes); ?></span>
+      <span id="l-<?= $event['id']; ?>event"><?= count($likes); ?></span>
     </item-stat>
     <item-stat>
       <span class="material-icons">comment</span> <?= count($comments); ?>
     </item-stat>
 
-    <?php if (isset($_SESSION['loggedin']) && $_SESSION['user_id'] == $post['user_id']) { ?>
+    <?php if (isset($_SESSION['loggedin']) && $_SESSION['user_id'] == $event['user_id']) { ?>
       <item-stat style="margin-left:auto">
         <form action="" method="post">
-          <input type="hidden" name="request" value="remove_post">
-          <input type="hidden" name="id" value="<?= $post['id']; ?>">
+          <input type="hidden" name="request" value="remove_event">
+          <input type="hidden" name="id" value="<?= $event['id']; ?>">
           <button type="submit" class="pointer" style="background:none">
             <span class="material-icons">delete</span>
           </button>
@@ -78,14 +78,20 @@ if (isset($_SESSION['loggedin'])) {
     <?php } ?>
   </item-stats>
 
-  <!-- general post info -->
-  <div class="card" style="padding-top:0px">
+  <hr>
+  <div class="card">
+      aoigen
+  </div>
+  <hr>
+
+  <!-- general event info -->
+  <div class="card">
     <div>
-      <?= $post['title']; ?>
+      <?= $event['title']; ?>
     </div>
     <div>
       <pre>
-        <?= $post['description']; ?>
+        <?= $event['description']; ?>
       </pre>
     </div>
   </div>
@@ -96,7 +102,7 @@ if (isset($_SESSION['loggedin'])) {
       <div class="info-description">
         <form class="flex-center" action="" method="post">
           <input type="hidden" name="request" value="add_comment">
-          <input type="hidden" name="id" value="<?= $post['id']; ?>">
+          <input type="hidden" name="id" value="<?= $event['id']; ?>">
           <input type="text" name="comment" placeholder="Comment" class="input" style="width:100%;margin-right:10px">
           <button type="submit" class="btn background-a text-white pointer" style="height:41px">
             <span class="material-icons" style="font-size:21px">send</span>
@@ -122,7 +128,7 @@ if (isset($_SESSION['loggedin'])) {
           <?php if (isset($_SESSION['loggedin']) && $_SESSION['user_id'] == $comment['user_id']) { ?>
             <form action="" method="post">
               <input type="hidden" name="request" value="remove_comment">
-              <input type="hidden" name="id" value="<?= $post['id']; ?>">
+              <input type="hidden" name="id" value="<?= $event['id']; ?>">
               <input type="hidden" name="comment_id" value="<?= $comment['id']; ?>">
               <span class="material-icons pointer" onclick="this.parentElement.submit()">delete</span>
             </form>

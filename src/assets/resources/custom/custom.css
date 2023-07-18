@@ -161,6 +161,12 @@ h2 {
 
 hr {
   border-color: #9196ff;
+  margin:0;
+}
+
+pre {
+  word-wrap: break-word;
+  white-space: pre-line;
 }
 
 .pointer {
