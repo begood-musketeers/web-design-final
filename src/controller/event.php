@@ -57,6 +57,7 @@ switch ($request) {
     header("Location: ?p=timeline");
     exit;
     break;
+  case 'join_event':
 
   default:
     break;

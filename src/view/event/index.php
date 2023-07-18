@@ -89,6 +89,17 @@ if (isset($_SESSION['loggedin'])) {
     <br><br>
     <span class="material-icons" style="font-size:18px;transform:translateY(3px)">location_on</span>
     Location: <a class="url" href="<?= $event['location']; ?>" target="_blank"><?= substr($event['location'], 0, 54); ?>...</a>
+
+    <?php if (isset($_SESSION['loggedin'])) { ?>
+      <br><br>
+      <form action="" method="post">
+        <input type="hidden" name="request" value="join_event">
+        <input type="hidden" name="id" value="<?= $event['id']; ?>">
+        <button type="submit" class="btn background-a text-white text-center pointer" style="display:block;font-size:medium">
+          Join
+        </button>
+      </form>
+    <?php } ?>
   </div>
   <hr>
 
