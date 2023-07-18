@@ -16,7 +16,7 @@ class EventDB {
       event.created_datetime,
       event.start_datetime,
       COUNT(DISTINCT user_like.user_id) AS likes,
-      COUNT(DISTINCT comment.user_id) AS comments,
+      COUNT(DISTINCT comment.id) AS comments,
       GROUP_CONCAT(DISTINCT image.file_name) AS image_file_names
     FROM event
       JOIN user ON user.id = event.user_id

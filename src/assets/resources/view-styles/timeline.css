@@ -27,6 +27,17 @@ item {
   margin: 30px calc(50% - 290px) 0 calc(50% - 290px);
   background: #fff;
   border-radius: 5px;
+  position: relative;
+}
+
+.item-type-icon {
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  padding:10px;
+  border-radius: 100%;
+  color:#fff;
+  background: linear-gradient(144deg, rgb(140, 146, 255) 0%, rgb(255, 192, 255) 61%, rgb(113, 255, 191) 100%); 
 }
 
 item-title {
@@ -65,8 +76,4 @@ item-stat {
     min-width: 86%;
     width: 86%;
   }
-}
-
-.liked {
-  color: #ff0000;
 }

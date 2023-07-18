@@ -15,7 +15,7 @@ class PostDB {
       post.location,
       post.created_datetime,
       COUNT(DISTINCT user_like.user_id) AS likes,
-      COUNT(DISTINCT comment.user_id) AS comments,
+      COUNT(DISTINCT comment.id) AS comments,
       GROUP_CONCAT(DISTINCT image.file_name) AS image_file_names
     FROM post
       JOIN user ON user.id = post.user_id
@@ -52,11 +52,11 @@ class PostDB {
     WHERE visible = 1
     ORDER BY post.id DESC
     ";
-    $post = $db->fetch_single($sql);
+    $post = $db->fetch($sql);
 
     // get comments
     $sql = "
-    SELECT user.username, comment.content FROM comment
+    SELECT comment.id, username, user_id, created_datetime, content FROM comment
     JOIN user ON user.id = comment.user_id
     WHERE comment.object_id = 1 AND comment.object_type = 'post'
     ORDER BY comment.created_datetime DESC
@@ -65,12 +65,28 @@ class PostDB {
 
     // get likes
     $sql = "
-    SELECT user.username FROM user_like
+    SELECT * FROM user_like
     JOIN user ON user.id = user_like.user_id
     WHERE user_like.object_id = 1 AND user_like.object_type = 'post'
     ";
+    $likes = $db->fetch_multiple($sql);
 
-    return [$post, $comments, $likes];
+    // get images
+    $sql = "
+    SELECT file_name FROM image
+    WHERE object_id = 1 AND object_type = 'post'
+    ";
+    $images = $db->fetch_multiple($sql);
+
+    // check if user has liked post
+    $user_id = (isset($_SESSION['user_id'])) ? $_SESSION['user_id'] : -1;
+    $sql = "
+    SELECT COUNT(*) AS liked FROM user_like
+    WHERE user_id = $user_id AND object_id = 1 AND object_type = 'post'
+    ";
+    $liked = $db->fetch($sql)['liked'];
+
+    return [$post, $comments, $likes, $liked, $images];
   }
 
   public static function create($title, $description, $location) {

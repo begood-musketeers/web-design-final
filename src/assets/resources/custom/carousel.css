@@ -6,6 +6,11 @@
 	line-height: 550px;
 }
 
+.slideshow.big {
+	height: 400px;
+	line-height: 730px;
+}
+
 .slideshow[data-transition="zoom"] {
 	overflow: hidden;
 }
@@ -22,6 +27,10 @@
 	position: absolute;
 	top: 0;
 	visibility: hidden;
+}
+
+.slideshow.big .slideshow--item {
+	height: 400px;
 }
 
 .slideshow--bullet:checked + .slideshow--item {

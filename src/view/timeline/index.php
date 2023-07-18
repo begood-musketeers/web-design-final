@@ -31,14 +31,26 @@ include_once("controller/timeline.php");
       }
 
       // check if user has liked this post
-      if ($item['liked'] == 1) {
-        $like_tag = 'onclick="unlike(' . $item['id'] . ',\'' . $type . '\')" class="pointer liked"';
+      if (isset($_SESSION['loggedin'])) {
+        if ($item['liked'] == 1) {
+          $like_tag = 'onclick="unlike(' . $item['id'] . ',\'' . $type . '\')" class="pointer liked"';
+        } else {
+          $like_tag = 'onclick="like(' . $item['id'] . ',\'' . $type . '\')" class="pointer"';
+        }
       } else {
-        $like_tag = 'onclick="like(' . $item['id'] . ',\'' . $type . '\')" class="pointer"';
+        $like_tag = 'onclick="login()" class="pointer"';
+      }
+
+      // if type is event add an icon
+      if ($type == 'event') {
+        $type_icon = '<span class="material-icons item-type-icon">event</span>';
+      } else {
+        $type_icon = '';
       }
 
       echo '
       <item>
+        ' . $type_icon . '
         <a href="?p=profile&u=' . $item['username'] . '">
           <item-title>
             <img src="assets/pfp/' . $item['username'] . '" height="50" width="50" class="item-pfp">
@@ -60,15 +72,16 @@ include_once("controller/timeline.php");
               <span class="material-icons">favorite</span>
               <span id="l-' . $item['id'] . '' . $type . '">' . $item['likes'] . '</span>
             </item-stat>
-            <item-stat>
-              <span class="material-icons">comment</span> ' . $item['comments'] . '
-            </item-stat>
+            <a href="?p=' . $type . '&id=' . $item['id'] . '">
+              <item-stat>
+                  <span class="material-icons">comment</span> ' . $item['comments'] . '
+                </item-stat>
+            </a>
           </item-stats>
 
           <a href="?p=' . $type . '&id=' . $item['id'] . '">
             <item-description>
               <p>' . $item['title'] . '</p>
-              <br>
               <p>' . substr($item['description'], 0, 100) . '...</p>
             </item-description>
           </a>
