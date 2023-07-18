@@ -7,8 +7,8 @@ $images = $post[4];
 $liked = $post[3];
 $post = $post[0];
 
-$site_name .= " - ";
-$page_description = "";
+$site_name .= " - " . $post['title'];
+$page_description = $post['description'];
 
 
 // IMAGES ========================================
@@ -83,7 +83,6 @@ if (isset($_SESSION['loggedin'])) {
         <form class="flex-center" action="" method="post">
           <input type="hidden" name="request" value="add_comment">
           <input type="hidden" name="id" value="<?= $post['id']; ?>">
-          <input type="hidden" name="type" value="post">
           <input type="text" name="comment" placeholder="Comment" class="input" style="width:100%;margin-right:10px">
           <button type="submit" class="btn background-a text-white pointer" style="height:41px">
             <span class="material-icons" style="font-size:21px">send</span>
@@ -102,13 +101,23 @@ if (isset($_SESSION['loggedin'])) {
             <img src="assets/pfp/<?= $comment['username']; ?>" height="35" width="35" class="info-pfp">
             <?= $comment['username']; ?> • <?= timeago($comment['created_datetime']); ?>
           </span>
-          <span class="comment-content"><?= $comment['content']; ?></span>
         </a>
       </div>
+        <span class="comment-content">
+          <?= $comment['content']; ?>
+          <?php if (isset($_SESSION['loggedin']) && $_SESSION['user_id'] == $comment['user_id']) { ?>
+            <form action="" method="post">
+              <input type="hidden" name="request" value="remove_comment">
+              <input type="hidden" name="id" value="<?= $post['id']; ?>">
+              <input type="hidden" name="comment_id" value="<?= $comment['id']; ?>">
+              <span class="material-icons pointer" onclick="this.parentElement.submit()">delete</span>
+            </form>
+          <?php } ?>
+        </span>
     </div>
   <?php } ?>
 </div>
 
-<br><br>
+<br><br><br><br><br><br>
 
 <?php include_once("view/partial_navbar.php"); ?>

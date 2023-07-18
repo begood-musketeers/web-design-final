@@ -15,7 +15,7 @@ class PostDB {
       post.location,
       post.created_datetime,
       COUNT(DISTINCT user_like.user_id) AS likes,
-      COUNT(DISTINCT comment.user_id) AS comments,
+      COUNT(DISTINCT comment.id) AS comments,
       GROUP_CONCAT(DISTINCT image.file_name) AS image_file_names
     FROM post
       JOIN user ON user.id = post.user_id
@@ -56,7 +56,7 @@ class PostDB {
 
     // get comments
     $sql = "
-    SELECT * FROM comment
+    SELECT comment.id, username, user_id, created_datetime, content FROM comment
     JOIN user ON user.id = comment.user_id
     WHERE comment.object_id = 1 AND comment.object_type = 'post'
     ORDER BY comment.created_datetime DESC
