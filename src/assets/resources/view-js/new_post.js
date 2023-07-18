@@ -3,7 +3,7 @@ function share() {
   var description = document.getElementById("description").value
   var location = document.getElementById("location").value
 
-  if (title == "" || description == "") {
+  if (title == "") {
     document.getElementById("error").innerHTML = "Please fill out all fields"
     document.getElementById("error").style.display = "block"
     return

@@ -64,6 +64,18 @@ if (isset($_SESSION['loggedin'])) {
     <item-stat>
       <span class="material-icons">comment</span> <?= count($comments); ?>
     </item-stat>
+
+    <?php if (isset($_SESSION['loggedin']) && $_SESSION['user_id'] == $post['user_id']) { ?>
+      <item-stat style="margin-left:auto">
+        <form action="" method="post">
+          <input type="hidden" name="request" value="remove_post">
+          <input type="hidden" name="id" value="<?= $post['id']; ?>">
+          <button type="submit" class="pointer" style="background:none">
+            <span class="material-icons">delete</span>
+          </button>
+        </form>
+      </item-stat>
+    <?php } ?>
   </item-stats>
 
   <!-- general post info -->

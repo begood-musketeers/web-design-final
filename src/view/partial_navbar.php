@@ -20,7 +20,7 @@ if (isset($_SESSION['loggedin'])) {
     <a class="nav-icon <?php if_active(["search"]); ?>" href="?p=search">
         <i class="material-icons">search</i>
     </a>
-    <a class="nav-icon <?php if_active(["create", "new_post"]); ?>" href="?p=create">
+    <a class="nav-icon <?php if_active(["create", "new_post", "new_event"]); ?>" href="?p=create">
         <i class="material-icons">add</i>
     </a>
     <a class="nav-icon <?php if_active(["notifications"]); ?>" href="?p=notifications">

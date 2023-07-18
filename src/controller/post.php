@@ -50,6 +50,13 @@ switch ($request) {
     header("Location: ?p=post&id=$id");
     exit;
     break;
+  case 'remove_post':
+    $id = sanitise($_POST['id']);
+    $user_id = $_SESSION['user_id'];
+    PostDB::delete($user_id, $id);
+    header("Location: ?p=timeline");
+    exit;
+    break;
 
   default:
     break;
