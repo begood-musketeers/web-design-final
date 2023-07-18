@@ -80,7 +80,15 @@ if (isset($_SESSION['loggedin'])) {
 
   <hr>
   <div class="card">
-      aoigen
+    <span class="material-icons" style="font-size:18px;transform:translateY(3px)">event</span>
+    <?php if (date("F j, Y", strtotime($event['start_datetime'])) == date("F j, Y", strtotime($event['end_datetime']))) { ?>
+      Takes place on <under><?= date("F j, Y", strtotime($event['start_datetime'])); ?></under>
+    <?php } else { ?>
+      Takes place from <under><?= date("F j, Y", strtotime($event['start_datetime'])); ?></under> to <under><?= date("F j, Y", strtotime($event['end_datetime'])); ?></under>
+    <?php } ?>
+    <br><br>
+    <span class="material-icons" style="font-size:18px;transform:translateY(3px)">location_on</span>
+    Location: <a class="url" href="<?= $event['location']; ?>" target="_blank"><?= substr($event['location'], 0, 54); ?>...</a>
   </div>
   <hr>
 

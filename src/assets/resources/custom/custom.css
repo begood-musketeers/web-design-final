@@ -185,3 +185,12 @@ pre {
 .liked {
   color: #ff0000;
 }
+
+.url {
+  color: #9196ff;
+  text-decoration: underline;
+}
+
+under {
+  text-decoration: underline;
+}
