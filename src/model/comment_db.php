@@ -2,6 +2,7 @@
 
 abstract class ObjectType {
     const POST = "post";
+    const EVENT = "event";
     const RECOMMENDATION = "recommendation";
     const BUCKET_LIST = "bucket_list";
 }

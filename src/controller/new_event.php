@@ -32,7 +32,7 @@ switch ($request) {
     if (in_array($file_ext, $allowed)) {
       if ($file_size <= 2097152) {
         $file_name_new = uniqid('', true) . '.' . $file_ext;
-        $file_destination = 'assets/uploads/' . $file_name_new;
+        $file_destination = '/uploads/' . $file_name_new;
         if (move_uploaded_file($file_tmp, $file_destination)) {
 
           EventDB::add_image($event_id, $file_name_new);

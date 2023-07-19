@@ -60,8 +60,7 @@ function sanitise($input) {
     $input = htmlspecialchars($input);
     return $input;
   } else {
-    _configException("sanitise", "Given input is empty", "Make sure the input is not empty before sanitising.");
-    exit;
+    return $input;
   }
 }
 

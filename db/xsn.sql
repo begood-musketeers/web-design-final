@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Jul 13, 2023 at 02:50 AM
+-- Generation Time: Jul 18, 2023 at 07:23 AM
 -- Server version: 8.0.33
 -- PHP Version: 8.1.20
 
@@ -57,17 +57,10 @@ CREATE TABLE `comment` (
   `id` int NOT NULL,
   `user_id` int NOT NULL,
   `object_id` int NOT NULL,
-  `object_type` enum('post','recommendation','bucket_list') NOT NULL,
+  `object_type` enum('post','recommendation','bucket_list','event') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `content` varchar(256) NOT NULL,
   `created_datetime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `comment`
---
-
-INSERT INTO `comment` (`id`, `user_id`, `object_id`, `object_type`, `content`, `created_datetime`) VALUES
-(1, 1, 1, 'post', 'this is comment', '2023-07-06 10:06:51');
 
 -- --------------------------------------------------------
 
@@ -163,13 +156,6 @@ CREATE TABLE `post` (
   `visible` tinyint NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Dumping data for table `post`
---
-
-INSERT INTO `post` (`id`, `user_id`, `title`, `description`, `type`, `location`, `created_datetime`, `visible`) VALUES
-(1, 1, 'hello world', 'this is my start', 'post', 'somewhere', '2023-07-06 05:22:49', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -183,8 +169,8 @@ CREATE TABLE `user` (
   `security_question_id` int NOT NULL,
   `security_question_answer` varchar(256) NOT NULL,
   `password` varchar(512) NOT NULL,
-  `role` enum('student','buddy','admin') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL
-  `picture` varchar(512),
+  `role` enum('student','buddy','admin') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `picture` varchar(512)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
@@ -211,7 +197,6 @@ CREATE TABLE `user_like` (
 --
 
 INSERT INTO `user_like` (`user_id`, `object_id`, `object_type`) VALUES
-(1, 1, 'post'),
 (1, 1, 'event'),
 (1, 2, 'event');
 
@@ -299,7 +284,7 @@ ALTER TABLE `bucket_list_item`
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `event`
@@ -311,7 +296,7 @@ ALTER TABLE `event`
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `notification`
@@ -323,7 +308,7 @@ ALTER TABLE `notification`
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `user`

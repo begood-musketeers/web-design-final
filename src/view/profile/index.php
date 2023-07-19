@@ -13,7 +13,12 @@ include_once("controller/user.php");
 <?php include_once("view/partial_navbar.php"); ?>
 <div class="container">
     <div class="rectangle">
-        <img src="https://avatars.cloudflare.steamstatic.com/3709c6cc1e650f51bc7c8bc4cf873da82a736a22_full.jpg" alt="Avatar" class="Avatar">
+        <img src="/uploads/<?php echo $user["picture"]; ?>" alt="Avatar" class="Avatar" />
+    <form method="POST" action="" enctype="multipart/form-data">
+        <input type="hidden" name="request" value="picture"/>
+        <input type="file" name="profile_picture" />
+        <button type="submit">submit</button>
+    </form>
         <p><?php echo $user["username"];?> <br> <span>Zwolle, the Netherlands<span></p>
         
     </div>
