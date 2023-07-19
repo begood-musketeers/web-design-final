@@ -60,48 +60,29 @@ function post_form(i, event_id) {
 }
 
 function add_image_field() {
-  var form = document.createElement("form")
-  form.setAttribute("method", "post")
-  form.setAttribute("class", "image-input")
-  form.setAttribute("target", "image_upload_target")
-  form.setAttribute("enctype", "multipart/form-data")
+    const form = document.querySelector("#new_event_form");
+    const images = document.querySelector("#images")
+    const image_count = images.querySelectorAll("img")?.length;
+    const image_index = image_count + 1;
+    const image = document.createElement("input")
+    image.setAttribute("type", "file")
+    image.setAttribute("name", "image_" + image_count);
+    image.setAttribute("class", "hidden");
 
-  var image = document.createElement("input")
-  image.setAttribute("type", "file")
-  image.setAttribute("name", "image")
-  image.setAttribute("class", "hidden")
+    const renderer = document.createElement("img")
 
-  var request = document.createElement("input")
-  request.setAttribute("type", "hidden")
-  request.setAttribute("name", "request")
-  request.setAttribute("value", "add_image")
+    form.appendChild(image)
+    images.appendChild(renderer)
 
-  var event_id = document.createElement("input")
-  event_id.setAttribute("type", "hidden")
-  event_id.setAttribute("name", "event_id")
-
-  form.appendChild(event_id)
-  form.appendChild(request)
-
-  form.onclick = function() {
-    image.click()
-  }
-
-  image.onchange = function() {
-    var reader = new FileReader()
-    reader.onload = function(e) {
-      form.style.backgroundImage = "url(" + e.target.result + ")"
-      form.style.backgroundSize = "cover"
-      form.style.backgroundPosition = "center"
-      form.style.backgroundColor = "none"
+    image.onchange = function() {
+        var reader = new FileReader()
+        reader.onload = function(e) {
+            renderer.setAttribute("src", e.target.result);
+        }
+        reader.readAsDataURL(image.files[0])
     }
-    reader.readAsDataURL(image.files[0])
-  }
 
-  form.appendChild(image)  
-  document.getElementById("images").appendChild(form)
-
-  image.click()
+    image.click()
 }
 
 document.getElementById("start_date").onchange = function() {

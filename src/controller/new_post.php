@@ -29,7 +29,6 @@ function upload_file($post_id, $image) {
         $file_name_new = uniqid('', true) . '.' . $file_ext;
         $file_destination = $upload_root . "/$file_name_new";
         if (move_uploaded_file($file_tmp, $file_destination)) {
-            echo "uploaded to $file_destination";
               PostDB::add_image($post_id, $file_name_new);
 
         } else {

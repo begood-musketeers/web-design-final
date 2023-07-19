@@ -9,6 +9,7 @@ class EventDB {
       event.id,
       event.user_id,
       user.username,
+      user.picture as user_picture,
       event.type,
       event.title,
       event.description,
@@ -91,43 +92,22 @@ class EventDB {
     return [$event, $comments, $likes, $liked, $images];
   }
 
-  public static function create($title, $description, $location, $type, $start_date, $end_date) {
-        $db = SimpleDB::Singleton();
-    $user_id = $_SESSION['user_id'];
+  public static function create($user_id, $title, $description, $location, $type, $start_date, $end_date) {
+    $db = SimpleDB::Singleton();
     $sql = "
-    INSERT INTO event (user_id, type, title, description, location, start_datetime, end_datetime, visible)
-    VALUES ($user_id, '$type', '$title', '$description', '$location', '$start_date', '$end_date', 1)
+    INSERT INTO event (`user_id`, `title`, `description`, `type`, `location`, `start_datetime`, `end_datetime`, `visible`)
+    VALUES (?, ?, ?, ?, ?, ?, ?, 1)
     ";
-    $result = $db->query($sql);
-
-    $sql = "
-    SELECT id FROM event 
-    WHERE user_id = $user_id AND type = '$type' AND title = '$title' AND description = '$description' AND location = '$location'
-    ORDER BY id DESC LIMIT 1";
-    $new_id = $db->fetch($sql)['id'];
-
-    return json_encode(['state' => 'success', 'event_id' => $new_id]);
+    return $db->query_prepared($sql, "issssss", $user_id, $title, $description, $type, $location, $start_date, $end_date);
   }
   
   public static function add_image($event_id, $file_name) {
-    // check if user is owner of event
-        $db = SimpleDB::Singleton();
-    $user_id = $_SESSION['user_id'];
-    $sql = "
-    SELECT COUNT(*) AS count FROM event
-    WHERE id = $event_id AND user_id = $user_id
-    ";
-    $result = $db->fetch($sql);
-
-    if ($result['count'] == 0) {
-      return json_encode(['state' => 'error', 'message' => 'You are not the owner of this event.']);
-    }
-
-        $db = SimpleDB::Singleton();
+    $db = SimpleDB::Singleton();
     $sql = "
     INSERT INTO image (object_id, object_type, file_name)
     VALUES ($event_id, 'event', '$file_name')
     ";
+    echo $sql;
     $result = $db->query($sql);
 
     return $result;

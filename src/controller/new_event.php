@@ -1,10 +1,45 @@
 <?php
 include("model/event_db.php");
 
+if (!isset($_SESSION["loggedin"]) || !$_SESSION["loggedin"]) {
+    header("Location: /?p=404");
+    die();
+}
+
+$user_id = $_SESSION["user_id"];
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request'])) {
   $request = sanitise($_POST['request']);
 } else {
   $request = "";
+}
+
+function upload_file($event_id, $image) {
+    $file_name = $image['name'];
+    $file_size = $image['size'];
+    $file_tmp = $image['tmp_name'];
+    $file_ext = explode('.', $file_name);
+    $file_ext = strtolower(end($file_ext));
+
+    $upload_root = realpath(dirname(__FILE__) . "/../uploads");
+
+    $allowed = array('jpg', 'jpeg', 'png', 'gif');
+    if (in_array($file_ext, $allowed)) {
+      if ($file_size <= 2097152) {
+        $file_name_new = uniqid('', true) . '.' . $file_ext;
+        $file_destination = $upload_root . "/$file_name_new";
+        if (move_uploaded_file($file_tmp, $file_destination)) {
+              EventDB::add_image($event_id, $file_name_new);
+
+        } else {
+          return json_encode(["error" => "Error uploading file."]);
+        }
+      } else {
+        return json_encode(["error" => "File size too large."]);
+      }
+    } else {
+      return json_encode(["error" => "Invalid file type."]);
+    }
 }
 
 switch ($request) {
@@ -15,40 +50,15 @@ switch ($request) {
     $end_date = sanitise($_POST['end_date']);
     $type = sanitise($_POST['type']);
     $location = (isset($_POST['location']) && $_POST['location'] != "") ? sanitise($_POST['location']) : null;
-    echo EventDB::create($title, $description, $location, $type, $start_date, $end_date);
-    exit;
-    break;
-  case 'add_image':
-    $event_id = sanitise($_POST['event_id']);
-    $image = $_FILES['image'];
-
-    $file_name = $image['name'];
-    $file_size = $image['size'];
-    $file_tmp = $image['tmp_name'];
-    $file_ext = explode('.', $file_name);
-    $file_ext = strtolower(end($file_ext));
-
-    $allowed = array('jpg', 'jpeg', 'png', 'gif');
-    if (in_array($file_ext, $allowed)) {
-      if ($file_size <= 2097152) {
-        $file_name_new = uniqid('', true) . '.' . $file_ext;
-        $file_destination = '/uploads/' . $file_name_new;
-        if (move_uploaded_file($file_tmp, $file_destination)) {
-
-          EventDB::add_image($event_id, $file_name_new);
-
-        } else {
-          echo json_encode(["error" => "Error uploading file."]);
-        }
-      } else {
-        echo json_encode(["error" => "File size too large."]);
-      }
-    } else {
-      echo json_encode(["error" => "Invalid file type."]);
+    if(empty($title) || empty($description) || empty($location)) {
+        break;
     }
-
-    exit;
-
+    $event_id = EventDB::create($user_id, $title, $description, $location, $type, $start_date, $end_date);
+    var_dump($_FILES);
+    foreach($_FILES as $file) {
+        upload_file($event_id, $file);
+    }
+    break;
   default:
     break;
 }

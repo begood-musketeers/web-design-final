@@ -5,10 +5,11 @@ $page_description = "Create an event on XSN";
 include_once("controller/new_event.php");
 ?>
 
-<div class="gradient-a flex-center" style="height:100%;width:100%">
+<form action="" method="post" enctype="multipart/form-data" id="new_event_form" class="gradient-a flex-center" style="height:100%;width:100%">
   <div id="event-form" class="card shadow" style="width:100%;max-width:400px">
     <h1 class="text-center">new event</h1><br><br>
 
+    <input type="hidden" name="request" value="new_event" />
     <input type="text" id="title" name="title" placeholder="title" style="width:calc(100% - 20px)"><br><br>
     <textarea id="description" name="description" placeholder="description" style="width:calc(100% - 20px)"></textarea><br><br>
     <input type="text" id="location" name="location" placeholder="location" style="width:calc(100% - 20px)"><br><br>
@@ -35,10 +36,10 @@ include_once("controller/new_event.php");
 
     <div role="alert" id="error" style="display:none;padding:20px;background:#ff000033;margin-bottom:20px"></div>
 
-    <span class="btn background-a text-white text-center pointer" onclick="share()" style="width:calc(100% - 20px);display:block">share</span>
+    <button type="submit">share</button>
   </div>
 
   <div id="loader" class="spinner" style="display:none"></div>
-</div>
+</form>
 
 <?php include_once("view/partial_navbar.php"); ?>
