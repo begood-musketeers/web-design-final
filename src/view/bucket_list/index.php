@@ -15,7 +15,7 @@ if ($bucket_list != null) {
 
 <ul>
 <?php
-foreach($bucket_list as $key => $value) {
+foreach($bucket_list as $key => $bucket_list) {
 ?>
 
 <li>
@@ -30,7 +30,14 @@ foreach($bucket_list as $key => $value) {
         $id = $bucket_list["id"];
         $title = $bucket_list["title"];
 ?>
-    <li><?php echo $title; ?></li>
+    <li>
+        <h3><?php echo $title; ?></h3>
+        <form action="" method="GET">
+            <input type="hidden" name="p" value="new_bucket_list" />
+            <input type="hidden" name="bucket_list_id" value="<?php echo $id; ?>" />
+            <button type="submit">modify</button>
+        </form>
+    </li>
 <?php
     }
 }
