@@ -20,6 +20,15 @@ class NotificationDB {
         WHERE user_id=$user_id
         ");
     }
+
+    public static function get_notification_count($user_id) {
+        $db = SimpleDB::Singleton();
+        return $db->fetch("
+        SELECT COUNT(*) AS count
+        FROM notification
+        WHERE user_id=$user_id
+        ")['count'];
+    }
 }
 
 ?>

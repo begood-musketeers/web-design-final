@@ -159,6 +159,10 @@ class EventDB {
     $sql = "DELETE FROM image WHERE object_id = $event_id AND object_type = 'event'";
     $result = $db->query($sql);
 
+    // delete all participants
+    $sql = "DELETE FROM event_participant WHERE event_id = $event_id";
+    $result = $db->query($sql);
+
     return $result;
   }
 
@@ -180,6 +184,20 @@ class EventDB {
       $result = $db->query($sql);
     } else {
       $db->query_prepared("INSERT INTO event_participant (event_id, user_id) VALUES (?, ?)", "ii", $event_id, $user_id);
+
+      // send notification to event owner
+      $sql = "
+      SELECT user_id FROM event
+      WHERE id = $event_id
+      ";
+      $event_owner_id = $db->fetch($sql)['user_id'];
+
+      // user_id 	acting_user_id 	object_id 	object_type 	type 	created_datetime 	
+      $sql = "
+      INSERT INTO notification (user_id, acting_user_id, object_id, object_type, type)
+      VALUES (?, ?, ?, 'event', 'event_join')
+      ";
+      $db->query_prepared($sql, "iii", $event_owner_id, $user_id, $event_id);
     }
 
   }
