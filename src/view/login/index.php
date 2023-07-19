@@ -10,13 +10,17 @@ include_once("controller/auth.php");
     <div class="part-left">
       <h1>Sign in</h1><br>
       <small>To an existing account</small><br><br>
-
-      <input type="text" id="username" name="username" placeholder="username"><br><br>
-
-      <input type="password" id="password" name="password" placeholder="password"><br><br>
-
-      <div role="alert" id="error" style="display:none;padding:20px;background:#ff000033;margin-bottom:10px;margin-right:20px;"></div><br>
-      <span class="btn background-a text-white pointer" onclick="login()">Sign In</span><br><br>
+      <form method="post" action="">
+        <input type="hidden" name="request" value="login">
+        <input type="text" id="username" name="username" placeholder="username"><br><br>
+        <input type="password" id="password" name="password" placeholder="password"><br><br>
+        <?php if (isset($result)) { ?>
+          <div role="alert" id="error" style="padding:20px;background:#ff000033;margin-bottom:15px;margin-right:20px;">
+            <?php if (isset($result)) { echo $result['message']; } ?>
+          </div>
+        <?php } ?>
+        <button class="btn background-a text-white pointer">Sign In</button><br><br>
+      </form>
     </div>
     <div class="part-right">
       <h1>Create</h1><br>

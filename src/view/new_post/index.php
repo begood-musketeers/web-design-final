@@ -24,7 +24,7 @@ include_once("controller/new_post.php");
 
     <div role="alert" id="error" style="display:none;padding:20px;background:#ff000033;margin-bottom:20px"></div>
 
-    <button type="submit">share</button>
+    <button class="btn background-a text-white text-center pointer" type="submit" style="width:100%;display:block;font-size:17px">share</button>
   </div>
 
   <div id="loader" class="spinner" style="display:none"></div>
