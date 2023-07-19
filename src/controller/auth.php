@@ -9,21 +9,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request'])) {
 
 switch ($request) {
   case 'login':
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    echo AuthDB::login($username, $password);
-    exit;
+    $username = sanitise($_POST['username']);
+    $password = sanitise($_POST['password']);
+    $result = AuthDB::login($username, $password);
+
+    if ($result['state'] == 'success') {
+      header("Location: ?");
+      exit;
+    }
     break;
 
   case 'register':
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $password_confirm = $_POST['password_confirm'];
-    $email = $_POST['email'];
-    $security_question_id = $_POST['security_question_id'];
-    $security_question_answer = $_POST['security_question_answer'];
-    echo AuthDB::register($username, $password, $password_confirm, $email, $security_question_id, $security_question_answer);
-    exit;
+    $username = sanitise($_POST['username']);
+    $password = sanitise($_POST['password']);
+    $password_confirm = sanitise($_POST['password_confirm']);
+    $email = sanitise($_POST['email']);
+    $security_question_id = sanitise($_POST['security_question_id']);
+    $security_question_answer = sanitise($_POST['security_question_answer']);
+    $result = AuthDB::register($username, $password, $password_confirm, $email, $security_question_id, $security_question_answer);
+    
+    if ($result['state'] == 'success') {
+      header("Location: ?p=login");
+      exit;
+    }
     break;
 
   default:
