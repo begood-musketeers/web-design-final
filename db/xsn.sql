@@ -169,8 +169,8 @@ CREATE TABLE `user` (
   `security_question_id` int NOT NULL,
   `security_question_answer` varchar(256) NOT NULL,
   `password` varchar(512) NOT NULL,
-  `role` enum('student','buddy','admin') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL
-  `picture` varchar(512),
+  `role` enum('student','buddy','admin') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `picture` varchar(512)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
