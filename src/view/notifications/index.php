@@ -17,6 +17,8 @@ include_once("controller/notifications.php");
     $notification["type"] = "followed you";
   } else if ($notification["type"] == "event") {
     $notification["type"] = "created an event";
+  } else if ($notification["type"] == "event_join") {
+    $notification["type"] = "joined your event";
   }
 
   if ($notification["type"] == "liked your post") {
@@ -31,12 +33,16 @@ include_once("controller/notifications.php");
   } else if ($notification["type"] == "created an event") {
     $icon = "event";
     $color = "purple";
+  } else if ($notification["type"] == "joined your event") {
+    $icon = "event_available";
+    $color = "purple";
   }
   ?>
 
   <div class="card notification shadow">
     <span class="material-icons notification-icon" style="color:<?= $color; ?>"><?= $icon; ?></span>
-    <?= $notification["username"]; ?> <?= $notification["type"]; ?> <?= timeago($notification["created_datetime"]); ?> ago
+    <a href="?p=profile&u=<?= $notification["username"]; ?>" class="url"><?= $notification["username"]; ?></a>
+    <?= $notification["type"]; ?> <?= timeago($notification["created_datetime"]); ?> ago
 
     <form method="post" action="">
       <input type="hidden" name="request" value="read_notification">
