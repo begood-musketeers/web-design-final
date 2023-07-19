@@ -10,64 +10,56 @@ $page_description = "View your profile";
 
 include_once("controller/user.php");
 ?>
-<?php include_once("view/partial_navbar.php"); ?>
-<div class="container">
-    <div class="rectangle">
-        <?php 
-        if (isset($user["picture"])) {
-            echo "<img src='/uploads/" . $user["picture"] . "' alt='Avatar' class='Avatar' />";
-        } else {
-            echo "
-            
-            <form method='POST' action='' enctype='multipart/form-data'>
-                <input type='hidden' name='request' value='picture'/>
-                <input type='file' name='profile_picture' />
-                <button type='submit'>submit</button>
-            </form>
-            ";
-        }
-        ?>
-        <p><?php echo $user["username"];?> <br> <span>Zwolle, the Netherlands<span></p>
-        
-    </div>
-    <div class="flex-container">
-        <div class="flex-item bigger-box">
-           <div class="content">
-            <!-- load all posts with user id -->
-           </div>
-        
+
+<body class="gradient-a">
+    <div style="padding-top:30px">
+        <div class="card shadow" style="width:100%;max-width:620px;margin:0 auto">
+            <img src='/uploads/<?= $user["picture"] ?>' alt='Avatar' class='Avatar' height="100" width="100" />
+            <?php echo $user["username"];?>
+
+            <?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == true && $_SESSION["user_id"] == $user["id"]) { ?>
+                <br><br>
+
+                <details>
+                    <summary><span class="material-icons">settings</span> Settings</summary>
+                    <br>
+                    <p>Change your profile picture:</p>
+                    <form method='POST' action='' enctype='multipart/form-data'>
+                        <input type='hidden' name='request' value='picture' />
+                        <input type='file' name='profile_picture' />
+                        <button class="btn" type='submit'>submit</button>
+                    </form>
+                </details>
+
+            <?php } ?>
+
         </div>
-        <div class="flex-item smaller-box"><p>Friends</p></div>
     </div>
-</div>
 
- <script>
-    function resizeRectangle() {
-    const rectangle = document.querySelector('.rectangle');
-    const windowWidth = window.innerWidth;
-    if (windowWidth <= 976) {
-        rectangle.style.width = '100%';
-    } else {
-        rectangle.style.width = '976px';
-    }
-}
-    window.addEventListener('resize', resizeRectangle);
-    // Call the function on page load to set the initial size
-    resizeRectangle();
-</script> 
-<script>
-    function resizeContainer() {
-    const rectangle = document.querySelector('.container');
-    const windowWidth = window.innerWidth;
-    if (windowWidth <= 1018) {
-        rectangle.style.width = '100%';
-    } else {
-        rectangle.style.width = '1018px';
-    }
-}
-    window.addEventListener('resize', resizeContainer);
-    // Call the function on page load to set the initial size
-    resizeContainer();
-</script>
+    <div style="padding-top:30px">
+        <div class="card shadow" style="width:100%;max-width:620px;margin:0 auto">
+            <h2>Latest posts</h2>
+            <?php foreach ($user_objects['posts'] as $post) { ?>
+                <p>- <a class="url" href="?p=post&id=<?= $post['id']?>"><?= $post['title']?></a></p>
+            <?php } ?>
+            <?php if (count($user_objects['posts']) == 0) { ?>
+                <p>No posts yet</p>
+            <?php } ?>
+        </div>
+    </div>
 
+    <div style="padding-top:30px">
+        <div class="card shadow" style="width:100%;max-width:620px;margin:0 auto">
+            <h2>Latest events</h2>
+            <?php foreach ($user_objects['events'] as $event) { ?>
+                <p>- <a class="url" href="?p=event&id=<?= $event['id']?>"><?= $event['title']?></a></p>
+            <?php } ?>
+            <?php if (count($user_objects['events']) == 0) { ?>
+                <p>No events yet</p>
+            <?php } ?>
+        </div>
+    </div>
 
+</body>
+
+<?php include_once("view/partial_navbar.php"); ?>

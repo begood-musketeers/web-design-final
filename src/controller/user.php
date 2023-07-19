@@ -3,6 +3,12 @@ include ("model/user_db.php");
 
 if (isset($_GET["u"])) {
     $id = UserDB::find_user_id($_GET["u"]);
+    if ($id == null) {
+        header("Location: /");
+        die();
+    } else {
+        $id = $id[0]["id"];
+    }
 } else if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]) {
     $id = $_SESSION["user_id"];
 } else {
@@ -27,12 +33,10 @@ switch($request) {
         } else {
             echo "Error uploading picture";
         }
-        $user = UserDB::get_user($id);
-        break;
 
     default:
-        http_response_code(200);
         $user = UserDB::get_user($id);
+        $user_objects = UserDB::get_latest_objects($id, 10);
 }
 
 ?>

@@ -17,9 +17,6 @@ if (isset($_SESSION['loggedin'])) {
     <a class="nav-icon <?php if_active(["timeline"]); ?>" href="?">
         <i class="material-icons">home</i>
     </a>
-    <a class="nav-icon <?php if_active(["search"]); ?>" href="?p=search">
-        <i class="material-icons">search</i>
-    </a>
     <a class="nav-icon" href="/?p=bucket_list">
         <i class="material-icons">checklist</i>
     </a>
