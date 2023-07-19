@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Jul 19, 2023 at 06:00 PM
+-- Generation Time: Jul 19, 2023 at 07:00 PM
 -- Server version: 8.0.33
 -- PHP Version: 8.1.20
 
@@ -34,6 +34,13 @@ CREATE TABLE `bucket_list` (
   `created_datetime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dumping data for table `bucket_list`
+--
+
+INSERT INTO `bucket_list` (`id`, `user_id`, `title`, `created_datetime`) VALUES
+(6, 1, 'Japan', '2023-07-19 18:33:54');
+
 -- --------------------------------------------------------
 
 --
@@ -43,24 +50,29 @@ CREATE TABLE `bucket_list` (
 CREATE TABLE `bucket_list_item` (
   `id` int NOT NULL,
   `bucket_list_id` int NOT NULL,
-  `content` varchar(256) NOT NULL,
-  `completed` tinyint NOT NULL DEFAULT '0'
+  `content` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `bucket_list_item`
 --
 
-INSERT INTO `bucket_list_item` (`id`, `bucket_list_id`, `content`, `completed`) VALUES
-(2, 1, 'hallo', 0),
-(3, 1, 'cheese', 0),
-(4, 1, '', 0),
-(5, 1, '', 0),
-(6, 1, '', 0),
-(7, 1, '', 0),
-(8, 1, '', 0),
-(9, 1, '', 0),
-(10, 1, '', 0);
+INSERT INTO `bucket_list_item` (`id`, `bucket_list_id`, `content`) VALUES
+(2, 1, 'hallo'),
+(3, 1, 'cheese'),
+(4, 1, ''),
+(5, 1, ''),
+(6, 1, ''),
+(7, 1, ''),
+(8, 1, ''),
+(9, 1, ''),
+(10, 1, ''),
+(12, 2, 'kerst en nieuw'),
+(14, 2, 'doping'),
+(15, 4, 'Meji Jingu'),
+(16, 4, 'Osaka'),
+(17, 6, 'Osaka'),
+(18, 6, 'Onzen');
 
 -- --------------------------------------------------------
 
@@ -82,9 +94,12 @@ CREATE TABLE `comment` (
 --
 
 INSERT INTO `comment` (`id`, `user_id`, `object_id`, `object_type`, `content`, `created_datetime`) VALUES
-(15, 6, 51, 'post', 'hello', '2023-07-19 15:17:51'),
-(16, 1, 51, 'post', 'pls like my post', '2023-07-19 15:18:31'),
-(17, 6, 51, 'post', 'amazing', '2023-07-19 15:38:24');
+(18, 6, 52, 'post', 'wow, maybe I should go sometime it looks amazing!', '2023-07-19 18:44:47'),
+(20, 9, 52, 'post', '👍', '2023-07-19 18:46:05'),
+(21, 9, 8, 'event', 'hahaha let\'s do it!', '2023-07-19 18:51:50'),
+(22, 10, 8, 'event', 'omggg ♥♥♥♥', '2023-07-19 18:53:27'),
+(23, 8, 56, 'post', 'I don\'t have a licence mannnn', '2023-07-19 18:57:02'),
+(24, 8, 8, 'event', 'ok', '2023-07-19 18:57:45');
 
 -- --------------------------------------------------------
 
@@ -110,7 +125,7 @@ CREATE TABLE `event` (
 --
 
 INSERT INTO `event` (`id`, `user_id`, `title`, `description`, `type`, `location`, `start_datetime`, `end_datetime`, `created_datetime`, `visible`) VALUES
-(2, 1, 'Visit Hello Kitty land :D', 'This Sunday (09-07-23) we will be going to Hello Kitty land with our share house.\r\n\r\nWe will leave at 12:00 from Toyocho station. Be sure to bring your own food and buy your own ticket before hand at: https://hellokitty.com/tickets', 'amusement park', 'https://www.google.com/maps/place/Yomiuri+Land/@35.6191805,139.51482,15.11z/data=!4m10!1m2!2m1!1syomiuri+land!3m6!1s0x6018fa887471f1f7:0xe782eba55f33f953!8m2!3d35.6249403!4d139.5175677!15sCgx5b21pdXJpIGxhbmRaDiIMeW9taXVyaSBsYW5kkgEOYW11c2VtZW50X3BhcmvgAQA!16s%2Fm%2F04ydpcz?entry=ttu', '2023-07-07 07:42:13', '2023-07-13 01:49:22', '2023-07-07 07:45:43', 1);
+(8, 8, 'Sanrio Puroland', 'My sharehouse is planning to visit Sanrio Puroland in Nagayama. We will be there at 12:00, make sure to bring some snacks because we heard that the food is expensive 😭😂😂.\r\n\r\nGet a ticket at https://www.puroland.jp/lang/en/', 'amusement park', 'https://www.google.com/maps?client=firefox-b-d&amp;output=search&amp;q=sanrio+puroland+location&amp;entry=mc&amp;sa=X&amp;ved=2ahUKEwj0-ejWt5uAAxWUpVYBHdN8DZIQ0pQJegQIDRAB', '2023-07-24 00:00:00', '2023-07-24 00:00:00', '2023-07-19 18:50:55', 1);
 
 -- --------------------------------------------------------
 
@@ -128,8 +143,10 @@ CREATE TABLE `event_participant` (
 --
 
 INSERT INTO `event_participant` (`user_id`, `event_id`) VALUES
-(1, 2),
-(6, 2);
+(6, 8),
+(9, 8),
+(10, 8),
+(11, 8);
 
 -- --------------------------------------------------------
 
@@ -162,10 +179,13 @@ CREATE TABLE `image` (
 INSERT INTO `image` (`id`, `object_id`, `object_type`, `file_name`) VALUES
 (1, 1, 'post', 'cat.jpg'),
 (2, 1, 'post', 'dog.jpg'),
-(4, 2, 'event', 'hello_kitty.jpg'),
-(5, 2, 'event', 'hello_kitty_2.jpg'),
-(6, 2, 'event', 'hello_kitty_3.jpg'),
-(61, 51, 'post', '64b7fce5bfe9f9.06017192.png');
+(62, 52, 'post', '64b82edeb7c136.47111939.jpg'),
+(63, 52, 'post', '64b82edee748a4.93780328.jpg'),
+(65, 52, 'post', '64b82edf37d781.99507030.jpg'),
+(68, 8, 'event', '64b8308fd7f064.26621060.jpg'),
+(69, 56, 'post', '64b831df7e7200.08355909.jpg'),
+(70, 56, 'post', '64b831dfb35238.73913369.jpg'),
+(72, 57, 'post', '64b832852da8d4.86570609.jpg');
 
 -- --------------------------------------------------------
 
@@ -188,10 +208,29 @@ CREATE TABLE `notification` (
 --
 
 INSERT INTO `notification` (`id`, `user_id`, `acting_user_id`, `object_id`, `object_type`, `type`, `created_datetime`) VALUES
-(13, 1, 1, 2, 'event', 'event_join', '2023-07-19 17:52:27'),
-(14, 1, 1, 2, 'event', 'like', '2023-07-19 17:55:35'),
-(15, 1, 1, 2, 'event', 'like', '2023-07-19 17:55:36'),
-(16, 1, 1, 2, 'event', 'event_join', '2023-07-19 17:55:39');
+(17, 8, 6, 52, 'post', 'like', '2023-07-19 18:44:34'),
+(19, 8, 6, 52, 'post', 'comment', '2023-07-19 18:44:47'),
+(21, 8, 9, 52, 'post', 'comment', '2023-07-19 18:46:05'),
+(22, 8, 9, 52, 'post', 'like', '2023-07-19 18:46:45'),
+(23, 8, 8, 52, 'post', 'like', '2023-07-19 18:46:59'),
+(24, 8, 1, 52, 'post', 'like', '2023-07-19 18:47:07'),
+(25, 8, 6, 8, 'event', 'like', '2023-07-19 18:51:23'),
+(26, 8, 6, 8, 'event', 'event_join', '2023-07-19 18:51:25'),
+(27, 8, 9, 8, 'event', 'event_join', '2023-07-19 18:51:43'),
+(28, 8, 9, 8, 'event', 'like', '2023-07-19 18:51:45'),
+(29, 8, 9, 8, 'event', 'comment', '2023-07-19 18:51:50'),
+(30, 8, 7, 8, 'event', 'event_join', '2023-07-19 18:51:58'),
+(31, 8, 10, 8, 'event', 'like', '2023-07-19 18:53:08'),
+(32, 8, 10, 8, 'event', 'event_join', '2023-07-19 18:53:11'),
+(33, 8, 10, 8, 'event', 'comment', '2023-07-19 18:53:27'),
+(34, 8, 1, 8, 'event', 'like', '2023-07-19 18:53:49'),
+(35, 8, 11, 8, 'event', 'like', '2023-07-19 18:54:53'),
+(36, 8, 11, 8, 'event', 'event_join', '2023-07-19 18:54:55'),
+(37, 11, 8, 56, 'post', 'like', '2023-07-19 18:56:42'),
+(38, 11, 8, 56, 'post', 'comment', '2023-07-19 18:57:02'),
+(39, 8, 8, 8, 'event', 'like', '2023-07-19 18:57:32'),
+(40, 8, 8, 8, 'event', 'comment', '2023-07-19 18:57:45'),
+(41, 11, 10, 56, 'post', 'like', '2023-07-19 18:59:30');
 
 -- --------------------------------------------------------
 
@@ -215,7 +254,9 @@ CREATE TABLE `post` (
 --
 
 INSERT INTO `post` (`id`, `user_id`, `title`, `description`, `type`, `location`, `created_datetime`, `visible`) VALUES
-(51, 1, 'this is post', 'post', 'post', '', '2023-07-19 15:10:29', 1);
+(52, 8, 'I went to Meji Jingu!!!', 'It was pretty cool', 'post', '', '2023-07-19 18:43:42', 1),
+(56, 11, 'Someone want to do a car meetup sometime??', 'If you want to do a meeting at SIT let me know in the comments', 'post', '', '2023-07-19 18:56:31', 1),
+(57, 10, 'I want to go to Disney Sea 😭', 'Anyone want to organise an event with me pls??', 'post', '', '2023-07-19 18:59:17', 1);
 
 -- --------------------------------------------------------
 
@@ -244,7 +285,12 @@ INSERT INTO `user` (`id`, `username`, `email`, `security_question_id`, `security
 (3, 'aojdngdoajbg', 'sljkgnd@oignsgn.com', 5, 'bible', '$2y$10$DDLR1dch7JYbxaPCVz.g5Ok6UV1WuxTmavcyyjMwD7ALdv1qP3wAy', 'student', NULL),
 (4, 'peterpan', 'peterpan@iets.com', 2, 'black', '$2y$10$CA5Xve5DqaYAETb0BNaoWOhJ9jnIzGb4NG/2k2k.IiahsLArw.ofu', 'student', NULL),
 (5, 'peter', 'asodgnsdjgn@lgjknaljgn.com', 3, 'pizza', '$2y$10$Y39uVhSYus/E/4xoLlb6jOwKNZsVBctusDALm3tx4srQj/3cRnu4C', 'student', NULL),
-(6, 'bruno', 'bruno@bruno.com', 3, 'sushi', '$2y$10$22LS4NfrsFyEHOsfGMtzEeft/GzcGBQpeMFu2asojrGk3iXIM3d3m', 'student', 'pp_6.png');
+(6, 'bruno', 'bruno@bruno.com', 3, 'sushi', '$2y$10$22LS4NfrsFyEHOsfGMtzEeft/GzcGBQpeMFu2asojrGk3iXIM3d3m', 'student', 'pp_6.png'),
+(7, 'Richard', 'richard@richard.com', 5, 'kaas', '$2y$10$KsYAaRWK5nmzwi6nu6Gmy.JEummZzviBZxMcTP58U2VvHNAHpQrta', 'student', NULL),
+(8, 'storm', 'storm@storm.com', 2, 'black', '$2y$10$v998fVPI0zEOh8X8uKajCuJxGO6JRSGDezns/A/QtL97dPAOT3/zy', 'student', 'pp_8.png'),
+(9, 'dillan', 'sujgb@ksjgjsfng.com', 1, 'mom', '$2y$10$/Kcnaxf103xCQd55sVcQCOPoFeoKfOhbuzMDW82AMm3q1rMqYl4pK', 'student', 'pp_9.png'),
+(10, 'sarah', 'kdjbgfdkjb@conm.com', 3, 'osdngdjng', '$2y$10$7K7MrNF2Oj8bglk5TuRP.eTbAw4VI7aiyndSHvWe0XzNVJ.SsfILq', 'student', 'pp_10.png'),
+(11, 'Daiki', 'jsgjn@agein.com', 4, 'ljjnsfgjlnsfgjlnfsg', '$2y$10$mxV.YiypvnIAkB.8qIL6TedC6BtX/BLXAuBmzj0rN1lnjpkqe7e7K', 'student', 'pp_11.png');
 
 -- --------------------------------------------------------
 
@@ -263,9 +309,18 @@ CREATE TABLE `user_like` (
 --
 
 INSERT INTO `user_like` (`user_id`, `object_id`, `object_type`) VALUES
-(1, 2, 'event'),
-(1, 51, 'post'),
-(6, 51, 'post');
+(1, 8, 'event'),
+(1, 52, 'post'),
+(6, 8, 'event'),
+(6, 52, 'post'),
+(8, 8, 'event'),
+(8, 52, 'post'),
+(8, 56, 'post'),
+(9, 8, 'event'),
+(9, 52, 'post'),
+(10, 8, 'event'),
+(10, 56, 'post'),
+(11, 8, 'event');
 
 --
 -- Indexes for dumped tables
@@ -345,49 +400,49 @@ ALTER TABLE `user_like`
 -- AUTO_INCREMENT for table `bucket_list`
 --
 ALTER TABLE `bucket_list`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `bucket_list_item`
 --
 ALTER TABLE `bucket_list_item`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `event`
 --
 ALTER TABLE `event`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
