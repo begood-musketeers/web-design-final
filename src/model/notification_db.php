@@ -18,6 +18,7 @@ class NotificationDB {
         FROM notification
         JOIN user ON user.id=notification.acting_user_id
         WHERE user_id=$user_id
+        ORDER BY notification.created_datetime DESC
         ");
     }
 
