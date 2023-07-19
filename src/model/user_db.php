@@ -23,6 +23,11 @@ class UserDB {
         $db = SimpleDB::Singleton();
         return $db->query_prepared("SELECT id FROM user WHERE username=? OR email=? LIMIT 1", "ss", $username, $username);
     }
+
+    public static function set_picture($user_id, $path) {
+        $db = SimpleDB::Singleton();
+        $db->query_prepared("UPDATE user SET picture = ? WHERE id = ?;", "si", $path, $user_id);
+    }
 }
 
 ?>

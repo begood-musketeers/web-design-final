@@ -20,6 +20,9 @@ if (isset($_SESSION['loggedin'])) {
     <a class="nav-icon <?php if_active(["search"]); ?>" href="?p=search">
         <i class="material-icons">search</i>
     </a>
+    <a class="nav-icon" href="/?p=bucket_list">
+        <i class="material-icons">checklist</i>
+    </a>
     <a class="nav-icon <?php if_active(["create", "new_post", "new_event"]); ?>" href="?p=create">
         <i class="material-icons">add</i>
     </a>
@@ -29,7 +32,7 @@ if (isset($_SESSION['loggedin'])) {
     <a class="nav-icon <?php if_active(["profile"]); ?>" href="?p=profile">
         <i class="material-icons">person</i>
     </a>
-    <a class="nav-icon" href="?p=logout">
+    <a class="nav-icon" href="/?p=logout">
         <i class="material-icons">logout</i>
     </a>
 </nav>
