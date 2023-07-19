@@ -10,18 +10,25 @@ class BucketListDB {
 
     public static function get_bucket_list($bucket_list_id) {
         $db = SimpleDB::Singleton();
-        $query = "SELECT bucket_list.title, bucket_list_item.content, bucket_list_item.completed FROM `bucket_list` INNER JOIN bucket_list_item ON bucket_list_item.bucket_list_id = bucket_list.id WHERE bucket_list.id = ?;";
+        $query = "SELECT bucket_list.title, bucket_list_item.id, bucket_list_item.content, bucket_list_item.completed FROM `bucket_list` INNER JOIN bucket_list_item ON bucket_list_item.bucket_list_id = bucket_list.id WHERE bucket_list.id = ?;";
         return $db->fetch_prepared_multiple($query, "i", $bucket_list_id);
+    }
+
+    public static function get_bucket_list_name($bucket_list_id) {
+        $db = SimpleDB::Singleton();
+        $query = "SELECT title FROM bucket_list WHERE id = ?";
+        return $db->fetch_prepared($query, "i", $bucket_list_id)[0]["title"];
     }
 
     public static function create($user_id, $title) {
         $db = SimpleDB::Singleton();
-        $db->query_prepared("INSERT INTO bucket_list ('user_id', 'title') VALUES ($user_id, ?)", "s", $title);
+        $result = $db->query_prepared("INSERT INTO bucket_list (`user_id`, `title`) VALUES ($user_id, ?)", "s", $title);
+        return $result;
     }
 
     public static function add_item($bucket_list_id, $content, $completed) {
         $db = SimpleDB::Singleton();
-        $db->query_prepared("INSERT INTO bucket_list_item ('bucket_list_id', 'content', 'completed') VALUES ($bucket_list_id, ?, ?)", "si", $content, $completed);
+        return $db->query_prepared("INSERT INTO bucket_list_item (`bucket_list_id`, `content`, `completed`) VALUES ($bucket_list_id, ?, ?)", "si", $content, $completed);
     }
 
     public static function remove_item($item_id) {
@@ -32,6 +39,11 @@ class BucketListDB {
     public static function set_completed($item_id, $completed) {
         $db = SimpleDB::Singleton();
         $db->query_prepared("UPDATE bucket_list_item SET completed=? WHERE id=$item_id", "i", $completed);
+    }
+
+    public static function update_item($item_id, $content, $completed) {
+        $db = SimpleDB::Singleton();
+        $db->query_prepared("UPDATE bucket_list_item SET completed=?, content=? WHERE id=?", "isi", $completed, $content, $item_id);
     }
 
     public static function complete($item_id) {

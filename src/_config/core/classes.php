@@ -30,7 +30,8 @@ class SimpleDB {
   function query_prepared($sql, $types, ...$args) {
     $stmt = $this->link->prepare($sql);
     $stmt->bind_param($types, ...$args);
-    return $stmt->execute();
+    $stmt->execute();
+    return mysqli_insert_id($this->link);
   }
 
   function fetch_prepared($sql, $types, ...$args) {
@@ -41,10 +42,8 @@ class SimpleDB {
         return null;
     }
 
-    $res = null;
-    $stmt->bind_result($res);
-    $stmt->fetch();
-    return $res;
+    $results = $stmt->get_result();
+    return $results->fetch_all(MYSQLI_ASSOC);
   }
 
   function fetch_prepared_multiple($sql, $types, ...$args) {

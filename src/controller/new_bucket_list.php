@@ -30,7 +30,7 @@ $bucket_lists = array();
 switch ($request) {
     case 'new_bucket_list':
         $title = sanitise($_POST["title"]);
-        echo BucketListDB::create($user_id, $title);
+        $bucket_list_id = BucketListDB::create($user_id, $title);
         break;
     case 'add_item':
         $content = sanitise($_POST["content"]);
@@ -40,17 +40,22 @@ switch ($request) {
         } else {
             $completed = false;
         }
-        echo BucketListDB::add_item($bucket_list_id, $content, $completed);
+        BucketListDB::add_item($bucket_list_id, $content, $completed);
         break;
     case 'complete_item':
         $item_id = sanitise($_POST["item_id"]);
         echo BucketListDB::complete($item_id);
         break;
-    case 'get_bucket_list':
-        $bucket_list = BucketListDB::get_bucket_list($bucket_list_id);
-        break;
     case 'list_bucket_lists':
         $bucket_lists = BucketListDB::get_bucket_lists($user_id);
+        break;
+
+    case 'update_item':
+        $bucket_list_id = sanitise($_POST["bucket_list_id"]);
+        $item_id = sanitise($_POST["item_id"]);
+        $content = sanitise($_POST["content"]);
+        $completed = filter_var($_POST["completed"], FILTER_VALIDATE_BOOLEAN);
+        BucketListDB::update_item($item_id, $content, $completed);
         break;
 }
 
