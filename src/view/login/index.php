@@ -12,14 +12,16 @@ include_once("controller/auth.php");
       <small>To an existing account</small><br><br>
       <form method="post" action="">
         <input type="hidden" name="request" value="login">
-        <input type="text" id="username" name="username" placeholder="username"><br><br>
-        <input type="password" id="password" name="password" placeholder="password"><br><br>
+        <input type="text" id="username" name="username" placeholder="username" value="<?= isset($_POST['username']) ? $_POST['username'] : '' ?>">
+        <br><br>
+        <input type="password" id="password" name="password" placeholder="password" value="<?= isset($_POST['password']) ? $_POST['password'] : '' ?>">
+        <br><br>
         <?php if (isset($result)) { ?>
           <div role="alert" id="error" style="padding:20px;background:#ff000033;margin-bottom:15px;margin-right:20px;">
             <?php if (isset($result)) { echo $result['message']; } ?>
           </div>
         <?php } ?>
-        <button class="btn background-a text-white pointer">Sign In</button><br><br>
+        <button class="btn background-a text-white pointer">Sign In</button>
       </form>
     </div>
     <div class="part-right">

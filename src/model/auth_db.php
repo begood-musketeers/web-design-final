@@ -12,6 +12,10 @@ class AuthDB {
       return ["state" => "error", "message" => "Password must be at least 8 characters long"];
     }
 
+    if ($password != $password_confirm) {
+      return ["state" => "error", "message" => "Passwords do not match"];
+    }
+
     if (strlen($email) < 3) {
       return ["state" => "error", "message" => "Email must be at least 3 characters long"];
     }
@@ -30,9 +34,7 @@ class AuthDB {
 
     if (!preg_match('/^[a-zA-Z0-9]+$/', $username)) {
       return ["state" => "error", "message" => "Username must be alphanumeric"];
-    }
-
-    
+    }    
 
     // check if username is taken
     $sql = "SELECT count(*) FROM user WHERE username = '$username'";
