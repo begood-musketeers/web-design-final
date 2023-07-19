@@ -29,6 +29,9 @@ if (isset($_SESSION['loggedin'])) {
     <a class="nav-icon <?php if_active(["profile"]); ?>" href="?p=profile">
         <i class="material-icons">person</i>
     </a>
+    <a class="nav-icon" href="?p=logout">
+        <i class="material-icons">logout</i>
+    </a>
 </nav>
 
 <?php
