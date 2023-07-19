@@ -48,7 +48,7 @@ if (isset($bucket_list_id)) {
 ?>
     <form action="" method="POST" class="gradient-a flex-center" style="height:100%;width:100%">
         <div id="new_bucket_list-form" class="card shadow" style="width:100%;max-width:400px">
-            <img src="../../uploads/bucket.jpg" alt="Bucket" style="float:right;" width="150" height="150" />
+            <img src="../../finalteam2/uploads/bucket.jpg" alt="Bucket" style="float:right;" width="150" height="150" />
             <h1 class="text-align">New bucket list</h1><br>
             <input class="input-field" type="text" name="title" placeholder="bucket list title" />
             <input type="hidden" name="request" value="new_bucket_list" />

@@ -5,7 +5,7 @@ include ("model/notification_db.php");
 if (isset($_SESSION["user_id"])) {
     $user_id = $_SESSION["user_id"];
 } else {
-    echo "<script> window.location = '/?p=404'</script>";
+    echo "<script> window.location = '?p=404'</script>";
     die();
 }
 
@@ -14,7 +14,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["notification_id"])) {
 } else if ($_SERVER["REQUEST_METHOD"] == "GET"){
     $action = "get_notifications";
 } else {
-    echo "<script> window.location = '/?p=404'</script>";
+    echo "<script> window.location = '?p=404'</script>";
     die();
 }
 

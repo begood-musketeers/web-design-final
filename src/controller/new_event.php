@@ -1,11 +1,6 @@
 <?php
 include("model/event_db.php");
 
-if (!isset($_SESSION["loggedin"]) || !$_SESSION["loggedin"]) {
-    header("Location: /?p=404");
-    die();
-}
-
 $user_id = $_SESSION["user_id"];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['request'])) {
@@ -21,7 +16,7 @@ function upload_file($event_id, $image) {
     $file_ext = explode('.', $file_name);
     $file_ext = strtolower(end($file_ext));
 
-    $upload_root = realpath(dirname(__FILE__) . "/../uploads");
+    $upload_root = realpath(dirname(__FILE__) . "/../finalteam2/uploads");
 
     $allowed = array('jpg', 'jpeg', 'png', 'gif');
     if (in_array($file_ext, $allowed)) {
@@ -65,7 +60,7 @@ switch ($request) {
     foreach($_FILES as $file) {
       upload_file($event_id, $file);
     }
-    header("Location: /?p=event&id=$event_id");
+    header("Location: ?p=event&id=$event_id");
     break;
   default:
     break;

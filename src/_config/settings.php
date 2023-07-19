@@ -16,8 +16,8 @@ $site_color = "#e3e3e3";
 $page_description = "";
 
 // Database settings
-$database_model = 'local';
+$database_model = 'production';
 $database_credentials = array(
   'local' => array('db', 'root', 'password'),
-  'production' => array('db', 'root', 'password')
+  'production' => array('172.21.82.208', 'finalteam2', 'fcRYcXkfSS')
 );

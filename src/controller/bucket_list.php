@@ -4,7 +4,7 @@ include ("model/bucket_list_db.php");
 if(isset($_SESSION["user_id"])) {
     $user_id = $_SESSION["user_id"];
 } else {
-    echo "<script> window.location = '/?p=404'</script>";
+    echo "<script> window.location = '?p=404'</script>";
     die();
 }
 

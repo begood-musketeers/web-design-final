@@ -112,7 +112,7 @@ if (isset($_SESSION['loggedin'])) {
       <div>
         <a class="comment" href="?p=profile&u=<?= $comment['username']; ?>">
           <span class="comment-user">
-            <img src="/uploads/<?= $comment['user_picture']; ?>" height="35" width="35" class="info-pfp">
+            <img src="uploads/<?= $comment['user_picture']; ?>" height="35" width="35" class="info-pfp">
             <?= $comment['username']; ?> • <?= timeago($comment['created_datetime']); ?>
           </span>
         </a>

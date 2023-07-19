@@ -19,7 +19,7 @@ class SimpleDB {
     
   public static function Singleton() {
     if(SimpleDB::$_singleton == null)
-        SimpleDB::$_singleton = new SimpleDB('xsn');
+        SimpleDB::$_singleton = new SimpleDB('finalteam2');
     return SimpleDB::$_singleton;
   }
 

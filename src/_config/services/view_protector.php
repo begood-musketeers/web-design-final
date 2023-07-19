@@ -6,6 +6,7 @@ if (!isset($_SESSION['loggedin'])) {
     $pages_that_require_login = [
       'create',
       'new_post',
+      'new_event',
       'notifications',
       'profile',
       'search',

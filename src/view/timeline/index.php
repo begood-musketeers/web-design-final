@@ -24,7 +24,7 @@ include_once("controller/timeline.php");
         $images_html .= '
           <input type="radio" name="p-' . $item['id'] . '' . $type . '" id="p-' . $item['id'] . '-item-' . $image_int . '" class="slideshow--bullet" ' . $checked . ' ' . $show_bullets . ' />
           <div class="slideshow--item">
-            <img src="/uploads/' . $image . '" style="max-width:100%;max-height:100%">
+            <img src="/finalteam2/uploads/' . $image . '" style="max-width:100%;max-height:100%">
           </div>
         ';
         $image_int++;
@@ -61,7 +61,7 @@ include_once("controller/timeline.php");
         ' . $type_icon . '
         <a href="?p=profile&u=' . $item['username'] . '">
           <item-title>
-            <img src="/uploads/' . $item['user_picture'] . '" height="50" width="50" class="item-pfp">
+            <img src="/finalteam2/uploads/' . $item['user_picture'] . '" height="50" width="50" class="item-pfp">
             ' . $item['username'] . ' • ' . timeago($item['created_datetime']) . '
           </item-title>
         </a>

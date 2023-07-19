@@ -6,5 +6,5 @@ $_SESSION = array();
 session_destroy();
 
 // Redirect to login page
-echo '<script>window.location.href="/?p=login"</script>';
+echo '<script>window.location.href="?p=login"</script>';
 exit;

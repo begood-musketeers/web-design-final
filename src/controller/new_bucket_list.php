@@ -3,7 +3,7 @@
 if(isset($_SESSION["user_id"])) {
     $user_id = $_SESSION["user_id"];
 } else {
-    echo "<script> window.location = '/?p=404'</script>";
+    echo "<script> window.location = '?p=404'</script>";
     die();
 }
 
@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["request"])) {
     }
 } else {
     $request = null;
-    echo "<script> window.location = '/?p=404'</script>";
+    echo "<script> window.location = '?p=404'</script>";
     die();
 }
 
@@ -31,7 +31,7 @@ switch ($request) {
     case 'new_bucket_list':
         $title = sanitise($_POST["title"]);
         $bucket_list_id = BucketListDB::create($user_id, $title);
-        header("Location: /?p=new_bucket_list&bucket_list_id=$bucket_list_id");
+        header("Location: ?p=new_bucket_list&bucket_list_id=$bucket_list_id");
         break;
     case 'add_item':
         $content = sanitise($_POST["content"]);

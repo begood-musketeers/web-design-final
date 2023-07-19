@@ -21,15 +21,6 @@ if($use_forced_https) {
   ';
 }
 
-// OPEN DOCUMENT
-echo '
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta content="initial-scale=1, shrink-to-fit=no, width=device-width" name="viewport">
-';
-
 // SERVE VIEW
 if (isset($page) & file_exists("view/" . $page . "/index.php"))
 {
@@ -81,5 +72,7 @@ echo '
   <meta property="og:description" content="' . $page_description . '" />
   <meta name="theme-color" content="' . $site_color . '">
   <meta name="twitter:card" content="summary_large_image">
+  <meta charset="utf-8">
+  <meta content="initial-scale=1, shrink-to-fit=no, width=device-width" name="viewport">
 ';
 ?>
