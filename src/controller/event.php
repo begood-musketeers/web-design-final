@@ -58,6 +58,12 @@ switch ($request) {
     exit;
     break;
   case 'join_event':
+    $id = sanitise($_POST['id']);
+    $user_id = $_SESSION['user_id'];
+    EventDB::join_event($user_id, $id);
+    header("Location: ?p=event&id=$id");
+    exit;
+    break;
 
   default:
     break;

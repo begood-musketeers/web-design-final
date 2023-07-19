@@ -44,8 +44,16 @@ include_once("controller/timeline.php");
       // if type is event add an icon
       if ($type == 'event') {
         $type_icon = '<span class="material-icons item-type-icon">event</span>';
+        $participants_html = '
+          <a href="?p=event&id=' . $item['id'] . '">
+            <item-stat>
+              <span class="material-icons">person</span> ' . $item['participants'] . '
+            </item-stat>
+          </a>
+        ';
       } else {
         $type_icon = '';
+        $participants_html = '';
       }
 
       echo '
@@ -77,6 +85,7 @@ include_once("controller/timeline.php");
                   <span class="material-icons">comment</span> ' . $item['comments'] . '
                 </item-stat>
             </a>
+            ' . $participants_html . '
           </item-stats>
 
           <a href="?p=' . $type . '&id=' . $item['id'] . '">

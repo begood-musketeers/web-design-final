@@ -19,12 +19,14 @@ class EventDB {
       user.picture AS user_picture,
       COUNT(DISTINCT user_like.user_id) AS likes,
       COUNT(DISTINCT comment.id) AS comments,
+      COUNT(DISTINCT event_participant.user_id) AS participants,
       GROUP_CONCAT(DISTINCT image.file_name) AS image_file_names
     FROM event
       JOIN user ON user.id = event.user_id
       LEFT JOIN user_like ON user_like.object_id = event.id AND user_like.object_type = 'event'
       LEFT JOIN comment ON comment.object_id = event.id AND comment.object_type = 'event'
       LEFT JOIN image ON image.object_id = event.id AND image.object_type = 'event'
+      LEFT JOIN event_participant ON event_participant.event_id = event.id
     WHERE event.visible = 1 
     GROUP BY event.id
     ORDER BY event.id DESC
@@ -89,7 +91,22 @@ class EventDB {
     ";
     $liked = $db->fetch($sql)['liked'];
 
-    return [$event, $comments, $likes, $liked, $images];
+    // check if user is taking part in event
+    $sql = "
+    SELECT COUNT(*) AS taking_part FROM event_participant
+    WHERE user_id = $user_id AND event_id = $id
+    ";
+    $taking_part = $db->fetch($sql)['taking_part'];
+
+    // get all participants
+    $sql = "
+    SELECT user_id, username, user.picture as user_picture FROM event_participant
+    JOIN user ON user.id = event_participant.user_id
+    WHERE event_id = $id
+    ";
+    $participants = $db->fetch_multiple($sql);
+
+    return [$event, $comments, $likes, $liked, $images, $taking_part, $participants];
   }
 
   public static function create($user_id, $title, $description, $location, $type, $start_date, $end_date) {
@@ -143,6 +160,28 @@ class EventDB {
     $result = $db->query($sql);
 
     return $result;
+  }
+
+  public static function join_event($user_id, $event_id) {
+    $db = SimpleDB::Singleton();
+
+    // check if user is already participant
+    $sql = "
+    SELECT COUNT(*) AS count FROM event_participant
+    WHERE event_id = $event_id AND user_id = $user_id
+    ";
+    $result = $db->fetch($sql);
+
+    if ($result['count'] > 0) {
+      $sql = "
+      DELETE FROM event_participant
+      WHERE event_id = $event_id AND user_id = $user_id
+      ";
+      $result = $db->query($sql);
+    } else {
+      $db->query_prepared("INSERT INTO event_participant (event_id, user_id) VALUES (?, ?)", "ii", $event_id, $user_id);
+    }
+
   }
 
 }

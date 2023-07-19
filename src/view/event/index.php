@@ -5,6 +5,8 @@ $comments = $event[1];
 $likes = $event[2];
 $images = $event[4];
 $liked = $event[3];
+$taking_part = $event[5];
+$participants = $event[6];
 $event = $event[0];
 
 $site_name .= " - " . $event['title'];
@@ -36,6 +38,17 @@ if (isset($_SESSION['loggedin'])) {
   }
 } else {
   $like_tag = 'onclick="login()" class="pointer"';
+}
+
+// taking part
+if (isset($_SESSION['loggedin'])) {
+  if ($taking_part == 1) {
+    $join_colour = 'background-b';
+  } else {
+    $join_colour = 'background-a';
+  }
+} else {
+  $join_colour = 'background-b';
 }
 ?>
 
@@ -78,7 +91,20 @@ if (isset($_SESSION['loggedin'])) {
     <?php } ?>
   </item-stats>
 
+  <!-- general event info -->
+  <div class="card">
+    <div>
+      <?= $event['title']; ?>
+    </div>
+    <div>
+      <pre>
+        <?= $event['description']; ?>
+      </pre>
+    </div>
+  </div>
+
   <hr>
+
   <div class="card">
     <span class="material-icons" style="font-size:18px;transform:translateY(3px)">event</span>
     <?php if (date("F j, Y", strtotime($event['start_datetime'])) == date("F j, Y", strtotime($event['end_datetime']))) { ?>
@@ -95,25 +121,45 @@ if (isset($_SESSION['loggedin'])) {
       <form action="" method="post">
         <input type="hidden" name="request" value="join_event">
         <input type="hidden" name="id" value="<?= $event['id']; ?>">
-        <button type="submit" class="btn background-a text-white text-center pointer" style="display:block;font-size:medium">
-          Join
+        <button type="submit" class="btn <?= $join_colour ?> text-white text-center pointer" style="display:block;font-size:medium">
+          <?php if ($taking_part == 1) { ?>
+            <span class="material-icons" style="font-size:18px;transform:translateY(3px)">check</span>
+            Taking part
+          <?php } else { ?>
+            <span class="material-icons" style="font-size:18px;transform:translateY(3px)">add</span>
+            Join event
+          <?php } ?>
         </button>
       </form>
     <?php } ?>
   </div>
+
   <hr>
 
-  <!-- general event info -->
-  <div class="card">
-    <div>
-      <?= $event['title']; ?>
+  <!-- show participants as list with icon:username -->
+  <?php if (count($participants) > 0) { ?>
+    <div class="card">
+      <div class="info-description">
+        <span class="material-icons" style="font-size:18px;transform:translateY(3px)">people</span>
+        Participants:<br><br>
+        <?php foreach ($participants as $participant) { ?>
+          <a class="info-profile" href="?p=profile&u=<?= $participant['username']; ?>" style="margin-bottom:5px">
+            <img src="uploads/<?= $participant['user_picture']; ?>" height="30" width="30" class="info-pfp">
+            <?= $participant['username']; ?>
+          </a>
+        <?php } ?>
+      </div>
     </div>
-    <div>
-      <pre>
-        <?= $event['description']; ?>
-      </pre>
+  <?php } ?>
+
+  <?php if (count($participants) == 0) { ?>
+    <div class="card">
+      <span class="material-icons" style="font-size:18px;transform:translateY(3px)">sentiment_dissatisfied</span>
+      No participants yet
     </div>
-  </div>
+  <?php } ?>
+
+  <hr><br><br>
 
   <!-- comment input and submit -->
   <?php if (isset($_SESSION['loggedin'])) { ?>
