@@ -19,7 +19,13 @@ if (isset($bucket_list_id)) {
         <input type="checkbox" name="completed" <?php echo $item["completed"] ? "checked" : "" ?> />
         <input type="hidden" name="request" value="update_item" />
         <button type="submit">submit</button>
-</form>
+    </form>
+    <form action="" method="POST">
+        <input type="hidden" name="request" value="delete_item" />
+        <input type="hidden" value=<?php echo $bucket_list_id; ?> name="bucket_list_id" />
+        <input type="hidden" name="item_id" value=<?php echo $item["id"] ?> />
+        <button type="submit">delete</button>
+    </form>
 <?php
     }
 ?>

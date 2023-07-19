@@ -57,6 +57,11 @@ switch ($request) {
         $completed = filter_var($_POST["completed"], FILTER_VALIDATE_BOOLEAN);
         BucketListDB::update_item($item_id, $content, $completed);
         break;
+    case "delete_item":
+        $bucket_list_id = sanitise($_POST["bucket_list_id"]);
+        $item_id = sanitise($_POST["item_id"]);
+        BucketListDB::remove_item($item_id);
+        break;
 }
 
 ?>
