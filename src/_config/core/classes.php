@@ -30,7 +30,11 @@ class SimpleDB {
   function query_prepared($sql, $types, ...$args) {
     $stmt = $this->link->prepare($sql);
     $stmt->bind_param($types, ...$args);
-    $stmt->execute();
+
+    if(!$stmt->execute()) {
+        return null;
+    }
+
     return mysqli_insert_id($this->link);
   }
 

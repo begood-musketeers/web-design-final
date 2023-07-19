@@ -24,7 +24,7 @@ include_once("controller/timeline.php");
         $images_html .= '
           <input type="radio" name="p-' . $item['id'] . '' . $type . '" id="p-' . $item['id'] . '-item-' . $image_int . '" class="slideshow--bullet" ' . $checked . ' ' . $show_bullets . ' />
           <div class="slideshow--item">
-            <img src="assets/uploads/' . $image . '" style="max-width:100%;max-height:100%">
+            <img src="/uploads/' . $image . '" style="max-width:100%;max-height:100%">
           </div>
         ';
         $image_int++;

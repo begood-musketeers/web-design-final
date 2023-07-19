@@ -89,39 +89,18 @@ class PostDB {
     return [$post, $comments, $likes, $liked, $images];
   }
 
-  public static function create($title, $description, $location) {
-        $db = SimpleDB::Singleton();
-    $user_id = $_SESSION['user_id'];
+  public static function create($user_id, $title, $description, $location) {
+    $db = SimpleDB::Singleton();
     $sql = "
-    INSERT INTO post (user_id, type, title, description, location, visible)
-    VALUES ($user_id, 'post', '$title', '$description', '$location', 1)
+    INSERT INTO post (`user_id`, `type`, `title`, `description`, `location`, `visible`)
+    VALUES (?, 'post',?,?,?, 1)
     ";
-    $result = $db->query($sql);
-
-    $sql = "
-    SELECT id FROM post 
-    WHERE user_id = $user_id AND type = 'post' AND title = '$title' AND description = '$description' AND location = '$location'
-    ORDER BY id DESC LIMIT 1";
-    $new_id = $db->fetch($sql)['id'];
-
-    return json_encode(['state' => 'success', 'post_id' => $new_id]);
+    return $db->query_prepared($sql, "isss", $user_id, $title, $description, $location);
   }
 
   public static function add_image($post_id, $file_name) {
-    // check if user is owner of post
-        $db = SimpleDB::Singleton();
-    $user_id = $_SESSION['user_id'];
-    $sql = "
-    SELECT COUNT(*) AS count FROM post
-    WHERE id = $post_id AND user_id = $user_id
-    ";
-    $result = $db->fetch($sql);
 
-    if ($result['count'] == 0) {
-      return json_encode(['state' => 'error', 'message' => 'You are not the owner of this post.']);
-    }
-
-        $db = SimpleDB::Singleton();
+    $db = SimpleDB::Singleton();
     $sql = "
     INSERT INTO image (object_id, object_type, file_name)
     VALUES ($post_id, 'post', '$file_name')

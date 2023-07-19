@@ -9,12 +9,6 @@ function share() {
     return
   }
 
-  if (location != "" && !location.match(/^(https:\/\/www\.google\.com\/maps\/place\/)(.*)/)) {
-    document.getElementById("error").innerHTML = "Please enter a valid Google Maps link"
-    document.getElementById("error").style.display = "block"
-    return
-  }
-
   document.getElementById("post-form").style.display = "none"
   document.getElementById("loader").style.display = "grid"
 
@@ -55,46 +49,27 @@ function post_form(i, post_id) {
 }
 
 function add_image_field() {
-  var form = document.createElement("form")
-  form.setAttribute("method", "post")
-  form.setAttribute("class", "image-input")
-  form.setAttribute("target", "image_upload_target")
-  form.setAttribute("enctype", "multipart/form-data")
+    const form = document.querySelector("#new_post_form");
+    const images = document.querySelector("#images")
+    const image_count = images.querySelectorAll("img")?.length;
+    const image_index = image_count + 1;
+    const image = document.createElement("input")
+    image.setAttribute("type", "file")
+    image.setAttribute("name", "image_" + image_count);
+    image.setAttribute("class", "hidden");
 
-  var image = document.createElement("input")
-  image.setAttribute("type", "file")
-  image.setAttribute("name", "image")
-  image.setAttribute("class", "hidden")
+    const renderer = document.createElement("img")
 
-  var request = document.createElement("input")
-  request.setAttribute("type", "hidden")
-  request.setAttribute("name", "request")
-  request.setAttribute("value", "add_image")
+    form.appendChild(image)
+    images.appendChild(renderer)
 
-  var post_id = document.createElement("input")
-  post_id.setAttribute("type", "hidden")
-  post_id.setAttribute("name", "post_id")
-
-  form.appendChild(post_id)
-  form.appendChild(request)
-
-  form.onclick = function() {
-    image.click()
-  }
-
-  image.onchange = function() {
-    var reader = new FileReader()
-    reader.onload = function(e) {
-      form.style.backgroundImage = "url(" + e.target.result + ")"
-      form.style.backgroundSize = "cover"
-      form.style.backgroundPosition = "center"
-      form.style.backgroundColor = "none"
+    image.onchange = function() {
+        var reader = new FileReader()
+        reader.onload = function(e) {
+            renderer.setAttribute("src", e.target.result);
+        }
+        reader.readAsDataURL(image.files[0])
     }
-    reader.readAsDataURL(image.files[0])
-  }
 
-  form.appendChild(image)  
-  document.getElementById("images").appendChild(form)
-
-  image.click()
+    image.click()
 }

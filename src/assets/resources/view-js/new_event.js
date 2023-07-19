@@ -12,12 +12,6 @@ function share() {
     return
   }
 
-  if (location != "" && !location.match(/^(https:\/\/www\.google\.com\/maps\/place\/)(.*)/)) {
-    document.getElementById("error").innerHTML = "Please enter a valid Google Maps link"
-    document.getElementById("error").style.display = "block"
-    return
-  }
-
   var start = new Date(start_date)
   var end = new Date(end_date)
   if (end < start) {
