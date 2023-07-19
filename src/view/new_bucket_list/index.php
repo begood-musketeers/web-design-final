@@ -12,10 +12,9 @@ if (isset($bucket_list_id)) {
         <div id="new_bucket_list-form" class="card shadow" style="width:100%;max-width:400px">
 <?php
     echo "<h1 class='text-align'> $name" . " "  . 'Bucketlist' . "</h1><br>";
-    echo "<legend>Edit item<legend>";
     foreach($bucket_list as $key => $item) {
 ?>
-    <br>
+    <br><legend>Edit item<legend>
     <input type="hidden" value=<?php echo $bucket_list_id; ?> name="bucket_list_id" />
     <input type="hidden" name="item_id" value=<?php echo $item["id"] ?> />
     <input type="text" name="content" value="<?php echo $item["content"]; ?>" />
