@@ -14,7 +14,7 @@ include_once("controller/user.php");
 <body class="gradient-a">
     <div style="padding-top:30px">
         <div class="card shadow" style="width:100%;max-width:620px;margin:0 auto">
-            <img src='/uploads/<?= $user["picture"] ?>' alt='Avatar' class='Avatar' height="100" width="100" />
+            <img src='/uploads/<?= $user["picture"] ?>' alt='' class='Avatar' height="100" width="100" />
             <?php echo $user["username"];?>
 
             <?php if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == true && $_SESSION["user_id"] == $user["id"]) { ?>
