@@ -15,6 +15,7 @@ include_once("controller/user.php");
 
 <div>
     Username: <?php echo $user["username"]; ?>
+<img src="/uploads/<?php echo $user["picture"]; ?>" />
     <form method="POST" action="" enctype="multipart/form-data">
         <input type="hidden" name="request" value="picture"/>
         <input type="file" name="profile_picture" />

@@ -24,14 +24,16 @@ switch($request) {
         $user = UserDB::get_user($id);
         break;
     case "picture":
-        $upload_root = dirname(__FILE__) . "/../uploads";
-        echo $upload_root;
+        $upload_root = realpath(dirname(__FILE__) . "/../uploads");
         $img = $_FILES["profile_picture"];
-        $img_name = "$upload_root/pp_$id.png";
-        if(move_uploaded_file($img["tmp_name"], $img_name)) {
+        $img_name = "pp_$id.png";
+        $upload_path = $upload_root . "/$img_name";
+        if(move_uploaded_file($img["tmp_name"], $upload_path)) {
+            UserDB::set_picture($id, $img_name);
         } else {
             echo "Error uploading picture";
         }
+        $user = UserDB::get_user($id);
         break;
 }
 
