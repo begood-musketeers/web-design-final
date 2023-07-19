@@ -8,6 +8,12 @@ class BucketListDB {
         return $db->fetch_prepared_multiple($query, "i", $user_id);
     }
 
+    public static function remove_bucket_list($bucket_list_id) {
+        $db = SimpleDB::Singleton();
+        $query = "DELETE FROM bucket_list WHERE id=?";
+        $db->query_prepared($query, "i", $bucket_list_id);
+    }
+
     public static function get_bucket_list($bucket_list_id) {
         $db = SimpleDB::Singleton();
         $query = "SELECT bucket_list.title, bucket_list_item.id, bucket_list_item.content, bucket_list_item.completed FROM `bucket_list` INNER JOIN bucket_list_item ON bucket_list_item.bucket_list_id = bucket_list.id WHERE bucket_list.id = ?;";

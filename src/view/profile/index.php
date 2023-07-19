@@ -13,12 +13,21 @@ include_once("controller/user.php");
 <?php include_once("view/partial_navbar.php"); ?>
 <div class="container">
     <div class="rectangle">
-        <img src="/uploads/<?php echo $user["picture"]; ?>" alt="Avatar" class="Avatar" />
-    <form method="POST" action="" enctype="multipart/form-data">
-        <input type="hidden" name="request" value="picture"/>
-        <input type="file" name="profile_picture" />
-        <button type="submit">submit</button>
-    </form>
+        <?php 
+        if (isset($user["picture"])) {
+            echo "<img src='/uploads/" . $user["picture"] . "' alt='Avatar' class='Avatar' />";
+        } else {
+            echo "
+            
+            <form method='POST' action='' enctype='multipart/form-data'>
+                <input type='hidden' name='request' value='picture'/>
+                <input type='file' name='profile_picture' />
+                <button type='submit'>submit</button>
+            </form>
+            ";
+        }
+        ?>
+        
         <p><?php echo $user["username"];?> <br> <span>Zwolle, the Netherlands<span></p>
         
     </div>
