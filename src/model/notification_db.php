@@ -16,7 +16,7 @@ class NotificationDB {
         return $db->fetch_multiple("
         SELECT notification.id, user.username, notification.created_datetime, notification.type, notification.object_id, notification.object_type
         FROM notification
-        JOIN user ON user.id=notification.user_id
+        JOIN user ON user.id=notification.acting_user_id
         WHERE user_id=$user_id
         ");
     }
