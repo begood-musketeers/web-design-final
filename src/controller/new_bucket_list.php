@@ -46,10 +46,6 @@ switch ($request) {
         $item_id = sanitise($_POST["item_id"]);
         echo BucketListDB::complete($item_id);
         break;
-    case 'list_bucket_lists':
-        $bucket_lists = BucketListDB::get_bucket_lists($user_id);
-        break;
-
     case 'update_item':
         $bucket_list_id = sanitise($_POST["bucket_list_id"]);
         $item_id = sanitise($_POST["item_id"]);
