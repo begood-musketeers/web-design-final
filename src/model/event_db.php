@@ -15,6 +15,7 @@ class EventDB {
       event.location,
       event.created_datetime,
       event.start_datetime,
+      user.picture AS user_picture,
       COUNT(DISTINCT user_like.user_id) AS likes,
       COUNT(DISTINCT comment.id) AS comments,
       GROUP_CONCAT(DISTINCT image.file_name) AS image_file_names
