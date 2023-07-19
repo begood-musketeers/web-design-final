@@ -27,7 +27,6 @@ include_once("controller/user.php");
             ";
         }
         ?>
-        
         <p><?php echo $user["username"];?> <br> <span>Zwolle, the Netherlands<span></p>
         
     </div>

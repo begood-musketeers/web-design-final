@@ -48,7 +48,7 @@ class PostDB {
   public static function get($id) {
         $db = SimpleDB::Singleton();
     $sql = "
-    SELECT post.id, post.user_id, user.username, post.type, post.title, post.description, post.location, post.created_datetime FROM post
+    SELECT post.id, post.user_id, user.username, post.type, post.title, post.description, post.location, post.created_datetime, user.picture as user_picture FROM post
     JOIN user ON user.id = post.user_id
     WHERE visible = 1 AND post.id = $id
     ORDER BY post.id DESC
@@ -57,7 +57,7 @@ class PostDB {
 
     // get comments
     $sql = "
-    SELECT comment.id, username, user_id, created_datetime, content FROM comment
+    SELECT comment.id, username, user_id, created_datetime, content, user.picture as user_picture FROM comment
     JOIN user ON user.id = comment.user_id
     WHERE comment.object_id = $id AND comment.object_type = 'post'
     ORDER BY comment.created_datetime DESC

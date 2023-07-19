@@ -44,7 +44,7 @@ if (isset($_SESSION['loggedin'])) {
 <div class="info">
   <!-- user info -->
   <a class="card info-profile" href="?p=profile&u=<?= $event['username']; ?>">
-    <img src="assets/pfp/<?= $event['username']; ?>" height="50" width="50" class="info-pfp">
+    <img src="uploads/<?= $event['user_picture']; ?>" height="50" width="50" class="info-pfp">
     <?= $event['username']; ?> • <?= timeago($event['created_datetime']); ?>
   </a>
 
@@ -137,7 +137,7 @@ if (isset($_SESSION['loggedin'])) {
       <div>
         <a class="comment" href="?p=profile&u=<?= $comment['username']; ?>">
           <span class="comment-user">
-            <img src="assets/pfp/<?= $comment['username']; ?>" height="35" width="35" class="info-pfp">
+            <img src="uploads/<?= $comment['user_picture']; ?>" height="35" width="35" class="info-pfp">
             <?= $comment['username']; ?> • <?= timeago($comment['created_datetime']); ?>
           </span>
         </a>

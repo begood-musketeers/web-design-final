@@ -44,7 +44,7 @@ if (isset($_SESSION['loggedin'])) {
 <div class="info">
   <!-- user info -->
   <a class="card info-profile" href="?p=profile&u=<?= $post['username']; ?>">
-    <img src="assets/pfp/<?= $post['username']; ?>" height="50" width="50" class="info-pfp">
+    <img src="uploads/<?= $post['user_picture']; ?>" height="50" width="50" class="info-pfp">
     <?= $post['username']; ?> • <?= timeago($post['created_datetime']); ?>
   </a>
 

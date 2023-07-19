@@ -50,7 +50,7 @@ class EventDB {
   public static function get($id) {
     $db = SimpleDB::Singleton();
     $sql = "
-    SELECT event.id, event.user_id, user.username, event.type, event.title, event.description, event.location, event.created_datetime, event.start_datetime, event.end_datetime FROM event
+    SELECT event.id, event.user_id, user.username, event.type, event.title, event.description, event.location, event.created_datetime, event.start_datetime, event.end_datetime, user.picture as user_picture FROM event
     JOIN user ON user.id = event.user_id
     WHERE visible = 1 AND event.id = $id
     ORDER BY event.id DESC
@@ -59,7 +59,7 @@ class EventDB {
 
     // get comments
     $sql = "
-    SELECT comment.id, username, user_id, created_datetime, content FROM comment
+    SELECT comment.id, username, user_id, created_datetime, content, user.picture as user_picture FROM comment
     JOIN user ON user.id = comment.user_id
     WHERE comment.object_id = $id AND comment.object_type = 'event'
     ORDER BY comment.created_datetime DESC

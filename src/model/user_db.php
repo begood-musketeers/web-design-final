@@ -21,7 +21,7 @@ class UserDB {
     
     public static function find_user_id($username) {
         $db = SimpleDB::Singleton();
-        return $db->query_prepared("SELECT id FROM user WHERE username=? OR email=? LIMIT 1", "ss", $username, $username);
+        return $db->fetch_prepared("SELECT id FROM user WHERE username=? OR email=? LIMIT 1", "ss", $username, $username)[0]["id"];
     }
 
     public static function set_picture($user_id, $path) {
