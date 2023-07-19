@@ -161,6 +161,12 @@ h2 {
 
 hr {
   border-color: #9196ff;
+  margin:0;
+}
+
+pre {
+  word-wrap: break-word;
+  white-space: pre-line;
 }
 
 .pointer {
@@ -178,4 +184,13 @@ hr {
 
 .liked {
   color: #ff0000;
+}
+
+.url {
+  color: #9196ff;
+  text-decoration: underline;
+}
+
+under {
+  text-decoration: underline;
 }

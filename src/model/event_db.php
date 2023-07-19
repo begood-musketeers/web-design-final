@@ -45,6 +45,51 @@ class EventDB {
     return $result;
   }
 
+  public static function get($id) {
+    $db = SimpleDB::Singleton();
+    $sql = "
+    SELECT event.id, event.user_id, user.username, event.type, event.title, event.description, event.location, event.created_datetime, event.start_datetime, event.end_datetime FROM event
+    JOIN user ON user.id = event.user_id
+    WHERE visible = 1 AND event.id = $id
+    ORDER BY event.id DESC
+    ";
+    $event = $db->fetch($sql);
+
+    // get comments
+    $sql = "
+    SELECT comment.id, username, user_id, created_datetime, content FROM comment
+    JOIN user ON user.id = comment.user_id
+    WHERE comment.object_id = $id AND comment.object_type = 'event'
+    ORDER BY comment.created_datetime DESC
+    ";
+    $comments = $db->fetch_multiple($sql);
+
+    // get likes
+    $sql = "
+    SELECT * FROM user_like
+    JOIN user ON user.id = user_like.user_id
+    WHERE user_like.object_id = $id AND user_like.object_type = 'event'
+    ";
+    $likes = $db->fetch_multiple($sql);
+
+    // get images
+    $sql = "
+    SELECT file_name FROM image
+    WHERE object_id = $id AND object_type = 'event'
+    ";
+    $images = $db->fetch_multiple($sql);
+
+    // check if user has liked event
+    $user_id = (isset($_SESSION['user_id'])) ? $_SESSION['user_id'] : -1;
+    $sql = "
+    SELECT COUNT(*) AS liked FROM user_like
+    WHERE user_id = $user_id AND object_id = $id AND object_type = 'event'
+    ";
+    $liked = $db->fetch($sql)['liked'];
+
+    return [$event, $comments, $likes, $liked, $images];
+  }
+
   public static function create($title, $description, $location, $type, $start_date, $end_date) {
         $db = SimpleDB::Singleton();
     $user_id = $_SESSION['user_id'];
@@ -82,6 +127,38 @@ class EventDB {
     INSERT INTO image (object_id, object_type, file_name)
     VALUES ($event_id, 'event', '$file_name')
     ";
+    $result = $db->query($sql);
+
+    return $result;
+  }
+
+  public static function delete($user_id, $event_id) {
+    $db = SimpleDB::Singleton();
+
+    // check if user is owner of event
+    $sql = "
+    SELECT COUNT(*) AS count FROM event
+    WHERE id = $event_id AND user_id = $user_id
+    ";
+    $result = $db->fetch($sql);
+
+    if ($result['count'] == 0) {
+      return json_encode(['state' => 'error', 'message' => 'You are not the owner of this event.']);
+    }
+
+    $sql = "DELETE FROM event WHERE id = $event_id";
+    $result = $db->query($sql);
+
+    // delete all comments
+    $sql = "DELETE FROM comment WHERE object_id = $event_id AND object_type = 'event'";
+    $result = $db->query($sql);
+
+    // delete all likes
+    $sql = "DELETE FROM user_like WHERE object_id = $event_id AND object_type = 'event'";
+    $result = $db->query($sql);
+
+    // delete all images
+    $sql = "DELETE FROM image WHERE object_id = $event_id AND object_type = 'event'";
     $result = $db->query($sql);
 
     return $result;
