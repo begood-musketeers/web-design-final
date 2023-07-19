@@ -22,10 +22,7 @@ switch($request) {
     case "delete_bucket_list":
         $id = sanitise($_POST["bucket_list_id"]);
         BucketListDB::remove_bucket_list($id);
-        break;
-    case 'list_bucket_lists':
-        $bucket_lists = BucketListDB::get_bucket_lists($user_id);
-        break;
     default:
+        $bucket_lists = BucketListDB::get_bucket_lists($user_id);
         break;
 }

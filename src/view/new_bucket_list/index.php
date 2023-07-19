@@ -10,31 +10,34 @@ if (isset($bucket_list_id)) {
 <div class="gradient-a flex-center" style="height:100%;width:100%">
     <div id="new_bucket_list-form" class="card shadow" style="width:100%;max-width:400px">
         <?php
-        echo "<h1 class='text-align'>$name" . " " . 'Bucketlist' . "</h1><br>";
-        foreach ($bucket_list as $key => $item) {
-            ?>
-            <form action="" method="POST">
-                <br><legend>Edit item</legend>
-                <input type="hidden" value="<?php echo $bucket_list_id; ?>" name="bucket_list_id" />
-                <input type="hidden" name="item_id" value="<?php echo $item["id"] ?>" />
-                <input type="text" name="content" value="<?php echo $item["content"]; ?>" />
-                <input class="checkbox" type="checkbox" name="completed" <?php echo $item["completed"] ? "checked" : "" ?> />
-                <input type="hidden" name="request" value="update_item" />
-                <button class="btn background-a text-white text-center pointer" type="submit">complete</button>
-            </form>
-            <form action="" method="POST">
-                <input type="hidden" name="request" value="delete_item" />
-                <input type="hidden" name="item_id" value="<?php echo $item["id"] ?>" />
-                <button class="btn background-c text-white text-center pointer" type="submit">delete</button> <br>
-            </form>
-            <?php
-        }
-        ?>
+        echo "<h1 class='text-align'>
+        <a href='?p=bucket_list' style='color:#00000033'>
+            <span class='material-icons'>arrow_back</span>
+        </a>
+        $name" . " " . 'Bucketlist' . "</h1><br>";
+        foreach ($bucket_list as $key => $item) { ?>
+                <div style="display:flex;margin-bottom:10px">
+                    <form action="" method="POST">
+                        <input type="text" name="content" value="<?php echo $item["content"]; ?>" />
+
+                        <input type="hidden" value="<?php echo $bucket_list_id; ?>" name="bucket_list_id" />
+                        <input type="hidden" name="item_id" value="<?php echo $item["id"] ?>" />
+                        <input type="hidden" name="request" value="update_item" />
+                        <button class="btn background-a text-white text-center pointer" type="submit">update</button>
+                    </form>
+
+                    <form action="" method="POST" style="margin-left:10px">
+                        <input type="hidden" value="<?php echo $bucket_list_id; ?>" name="bucket_list_id" />
+                        <input type="hidden" name="item_id" value="<?php echo $item["id"] ?>" />
+                        <input type="hidden" name="request" value="delete_item" />
+                        <button class="btn background-c text-white text-center pointer" type="submit">delete</button>
+                    </form>
+                </div>
+        <?php } ?>
         <form action="" method="POST">
             <br><legend>Add new item</legend>
             <input type="hidden" value="<?php echo $bucket_list_id; ?>" name="bucket_list_id" />
             <input type="text" name="content" />
-            <input type="checkbox" name="completed" />
             <input type="hidden" name="request" value="add_item" />
             <button class="btn background-a text-white text-center pointer" type="submit">add</button>
         </form>

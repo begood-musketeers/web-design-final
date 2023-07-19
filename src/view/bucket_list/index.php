@@ -6,35 +6,35 @@ include_once("controller/bucket_list.php");
 
 ?>
 <body class="gradient-a">
-    <div id="bucket_list-form" class="flex-center card shadow"> 
-<h1>New bucket list</h1><br>
+<h1 class="text-center" style="padding:20px">Bucket lists</h1>
 <?php
-if (is_array($bucket_lists) && count($bucket_lists) >= 0) {
-    echo '<ul>'; // Opening the <ul> tag here
+if (is_array($bucket_lists) && count($bucket_lists) > 0) {
+    echo '<div class="card block shadow">'; // Opening the <ul> tag here
     foreach($bucket_lists as $bucket_list) {
         $id = $bucket_list["id"];
         $title = $bucket_list["title"];
 ?>
-        <li>
-            <h3><?php echo $title; ?></h3>
-            <form action="" method="GET">
+            <h2><?php echo $title; ?></h2>
+            <form action="" method="GET" style="display:inline">
                 <input type="hidden" name="p" value="new_bucket_list" />
                 <input type="hidden" name="bucket_list_id" value="<?php echo $id; ?>" />
                 <button class="btn background-a text-white text-center pointer" type="submit">modify</button>
             </form>
-            <form action="" method="POST">
+            <form action="" method="POST" style="display:inline">
                 <input type="hidden" name="request" value="delete_bucket_list" />
                 <input type="hidden" name="bucket_list_id" value="<?php echo $id; ?>" />
                 <button class="btn background-c text-white text-center pointer" type="submit">delete</button>
             </form>
-        </li>
+            <br><br>
 <?php
     }
-    echo '</ul>'; // Closing the <ul> tag here
-} else {
-    echo "No bucket lists found";
+
+    echo '</div>'; // Closing the <ul> tag here
 }
 ?>
+
+<div class='card block shadow'>Create a bucket list <a class='url' href='?p=new_bucket_list'>here</a>.</div>
+
 </div>
 
 

@@ -31,16 +31,12 @@ switch ($request) {
     case 'new_bucket_list':
         $title = sanitise($_POST["title"]);
         $bucket_list_id = BucketListDB::create($user_id, $title);
+        header("Location: /?p=new_bucket_list&bucket_list_id=$bucket_list_id");
         break;
     case 'add_item':
         $content = sanitise($_POST["content"]);
         $bucket_list_id = sanitise($_POST["bucket_list_id"]);
-        if (isset($_POST["completed"])) {
-            $completed = filter_var($_POST["completed"], FILTER_VALIDATE_BOOLEAN);
-        } else {
-            $completed = false;
-        }
-        BucketListDB::add_item($bucket_list_id, $content, $completed);
+        BucketListDB::add_item($bucket_list_id, $content);
         break;
     case 'complete_item':
         $item_id = sanitise($_POST["item_id"]);
@@ -50,8 +46,7 @@ switch ($request) {
         $bucket_list_id = sanitise($_POST["bucket_list_id"]);
         $item_id = sanitise($_POST["item_id"]);
         $content = sanitise($_POST["content"]);
-        $completed = filter_var($_POST["completed"], FILTER_VALIDATE_BOOLEAN);
-        BucketListDB::update_item($item_id, $content, $completed);
+        BucketListDB::update_item($item_id, $content);
         break;
     case "delete_item":
         $bucket_list_id = sanitise($_POST["bucket_list_id"]);
