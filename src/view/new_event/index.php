@@ -10,12 +10,15 @@ include_once("controller/new_event.php");
     <h1 class="text-center">new event</h1><br><br>
 
     <input type="hidden" name="request" value="new_event" />
-    <input type="text" id="title" name="title" placeholder="title" style="width:calc(100% - 20px)"><br><br>
-    <textarea id="description" name="description" placeholder="description" style="width:calc(100% - 20px)"></textarea><br><br>
-    <input type="text" id="location" name="location" placeholder="location" style="width:calc(100% - 20px)"><br><br>
+    <input type="text" id="title" name="title" placeholder="title" style="width:calc(100% - 20px)" value="<?= (isset($title) ? $title : "") ?>" />
+    <br><br>
+    <textarea id="description" name="description" placeholder="description" style="width:calc(100% - 20px)"><?= (isset($description) ? $description : "") ?></textarea>
+    <br><br>
+    <input type="text" id="location" name="location" placeholder="location" style="width:calc(100% - 20px)" value="<?= (isset($location) ? $location : "") ?>" />
+    <br><br>
 
     <select id="type" name="type" style="width:100%">
-      <option disabled selected value> -- Event Type -- </option>
+      <option selected value=""> -- Event Type -- </option>
       <option value="sports">Sports</option>
       <option value="cinema">Cinema</option>
       <option value="hangout">Hangout</option>
@@ -23,10 +26,10 @@ include_once("controller/new_event.php");
       <option value="amusement park">Amusement Park</option>
     </select><br><br>
 
-    <input type="date" id="start_date" name="start_date" placeholder="start date" style="width:calc(100% - 20px)"><br><br>
-    <input type="date" id="end_date" name="end_date" placeholder="end date" style="width:calc(100% - 20px)"><br><br>
-
-    <iframe id="image_upload_target" name="image_upload_target" style="display:none"></iframe>
+    <input type="date" id="start_date" name="start_date" placeholder="start date" style="width:calc(100% - 20px)" value="<?= (isset($start_date) ? $start_date : "") ?>">
+    <br><br>
+    <input type="date" id="end_date" name="end_date" placeholder="end date" style="width:calc(100% - 20px)" value="<?= (isset($end_date) ? $end_date : "") ?>">
+    <br><br>
 
     <div id="images">
       <image-add onclick="add_image_field()">
@@ -34,12 +37,14 @@ include_once("controller/new_event.php");
       </image-add>
     </div>
 
-    <div role="alert" id="error" style="display:none;padding:20px;background:#ff000033;margin-bottom:20px"></div>
+    <?php if (isset($error)) { ?>
+      <div role="alert" id="error" style="padding:20px;background:#ff000033;margin-bottom:20px">
+        <?= $error ?>
+      </div>
+    <?php } ?>
 
-    <button type="submit">share</button>
+    <button class="btn background-a text-white text-center pointer" type="submit" style="width:100%;display:block;font-size:17px">share</button>
   </div>
-
-  <div id="loader" class="spinner" style="display:none"></div>
 </form>
 
 <?php include_once("view/partial_navbar.php"); ?>

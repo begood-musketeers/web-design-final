@@ -49,15 +49,23 @@ switch ($request) {
     $start_date = sanitise($_POST['start_date']);
     $end_date = sanitise($_POST['end_date']);
     $type = sanitise($_POST['type']);
-    $location = (isset($_POST['location']) && $_POST['location'] != "") ? sanitise($_POST['location']) : null;
-    if(empty($title) || empty($description) || empty($location)) {
-        break;
-    }
+    $location = (isset($_POST['location']) && $_POST['location'] != "") ? sanitise($_POST['location']) : "";
+
+    if(empty($title)) {$error = "Title cannot be empty."; break;}
+    if(empty($description)) {$error = "Description cannot be empty."; break;}
+    if(strlen($title) > 256) {$error = "Title cannot be longer than 100 characters."; break;}
+    if(strlen($description) > 1024) {$error = "Description cannot be longer than 1000 characters."; break;}
+    if (!in_array($type, ["sports", "cinema", "hangout", "games", "amusement park"])) {$error = "Invalid type."; break;}
+    if (strtotime($start_date) > strtotime($end_date)) {$error = "Start date cannot be after end date."; break;}
+    if (empty($start_date)) {$error = "Start date cannot be empty."; break;}
+    if (empty($end_date)) {$error = "End date cannot be empty."; break;}
+    if (count($_FILES) == 0) {$error = "Please upload at least one image."; break;}
+
     $event_id = EventDB::create($user_id, $title, $description, $location, $type, $start_date, $end_date);
-    var_dump($_FILES);
     foreach($_FILES as $file) {
-        upload_file($event_id, $file);
+      upload_file($event_id, $file);
     }
+    header("Location: /?p=event&id=$event_id");
     break;
   default:
     break;

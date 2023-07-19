@@ -21,7 +21,7 @@ foreach ($images as $image) {
   $images_html .= '
     <input type="radio" name="p-' . $post['id'] . 'post" id="p-' . $post['id'] . '-item-' . $image_int . '" class="slideshow--bullet" ' . $checked . ' ' . $show_bullets . ' />
     <div class="slideshow--item big">
-      <img src="/uploads/' . $image['file_name'] . '" style="max-width:100%;max-height:100%">
+      <img src="uploads/' . $image['file_name'] . '" style="max-width:100%;max-height:100%">
     </div>
   ';
   $image_int++;

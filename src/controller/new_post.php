@@ -46,14 +46,19 @@ switch ($request) {
   case 'new_post':
     $title = sanitise($_POST['title']);
     $description = sanitise($_POST['description']);
-    $location = (isset($_POST['location']) && $_POST['location'] != "") ? sanitise($_POST['location']) : null;
-    if(empty($title) || empty($description) || empty($location)) {
-        break;
-    }
+    $location = (isset($_POST['location']) && $_POST['location'] != "") ? sanitise($_POST['location']) : "";
+
+    if(empty($title)) {$error = "Title cannot be empty."; break;}
+    if(empty($description)) {$error = "Description cannot be empty."; break;}
+    if(strlen($title) > 256) {$error = "Title cannot be longer than 100 characters."; break;}
+    if(strlen($description) > 1024) {$error = "Description cannot be longer than 1000 characters."; break;}
+    if (count($_FILES) == 0) {$error = "Please upload at least one image."; break;}
+
     $post_id = PostDB::create($user_id, $title, $description, $location);
     foreach($_FILES as $file) {
-        upload_file($post_id, $file);
+      upload_file($post_id, $file);
     }
+    header("Location: /?p=post&id=$post_id");
     break;
   case 'add_image':
     $post_id = sanitise($_POST['post_id']);
