@@ -5,6 +5,7 @@ $page_description = "XSN notifications";
 include_once("controller/notifications.php");
 ?>
 
+<body class="gradient-a">
 <h1 class="text-center" style="padding:20px 0px">Notifications</h1>
 <?php foreach ($notifications as $notification) { ?>
   <?php
@@ -52,5 +53,6 @@ include_once("controller/notifications.php");
 <?php } ?>
 
 <br><br><br><br><br><br>
+</body>
 
 <?php include_once("view/partial_navbar.php"); ?>
