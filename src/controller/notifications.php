@@ -21,7 +21,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["notification_id"])) {
 switch($action) {
     case "read_notification":
         $notif_id = sanitise($_POST["notification_id"]);
-        NotificationDB::remove_notification($notif_id);
+        NotificationDB::remove_notification($user_id, $notif_id);
         $notifications = NotificationDB::get_notifications($user_id);
         break;
     case "get_notifications":

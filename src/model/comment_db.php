@@ -26,7 +26,7 @@ class CommentDB {
 
         // notify the object owner
         $sql = "
-        INSERT INTO notification (user_id, liking_user_id, object_id, object_type, type)
+        INSERT INTO notification (user_id, acting_user_id, object_id, object_type, type)
         VALUES (?, ?, ?, ?, ?)
         ";
         $result = $db->query_prepared($sql, "iiiss", $user_result[0]['user_id'], $user_id, $object_id, $object_type, "comment");
