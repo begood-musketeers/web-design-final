@@ -51,15 +51,9 @@ class SimpleDB {
     $stmt = $this->link->prepare($sql);
     $stmt->bind_param($types, ...$args);
     $stmt->execute();
-    $result = NULL;
-    $stmt->bind_result($result);
-    $array = Array();
-    for($i = 0; $stmt->fetch(); $i++) {
-        $array[$i] = $result;
-    }
-    for($i = 0; $array[$i] = mysqli_fetch_assoc($result); $i++) ;
-    array_pop($array);
-    return $array;
+    $query_results = $stmt->get_result();
+    $results = $query_results->fetch_all(MYSQLI_ASSOC);
+    return $results;
   }
 
   function fetch($sql) {
