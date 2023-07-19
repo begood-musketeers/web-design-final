@@ -31,7 +31,7 @@ if (isset($bucket_list_id)) {
     <input type="text" name="content" />
     <input type="checkbox" name="completed" />
     <input type="hidden" name="request" value="add_item" />
-    <button class="btn background-a text-white text-center pointer" type="submit">submit</button>
+    <button class="btn background-a text-white text-center pointer" type="submit">add</button>
 </form>
 <?php
 } else {
