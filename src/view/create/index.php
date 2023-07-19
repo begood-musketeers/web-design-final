@@ -14,7 +14,7 @@ $page_description = "Post on XSN";
       </create-option-left>
       <create-option-right>
         <a href="?p=new_post">
-          <create-option-block style="border-radius: 25px; margin-bottom:25px;">
+          <create-option-block style="border-radius: 25px;">
             <span class="material-icons">signpost</span>
           </create-option-block>
         </a>
@@ -27,25 +27,25 @@ $page_description = "Post on XSN";
       </create-option-left>
       <create-option-right>
         <a href="?p=new_event">
-          <create-option-block style="border-radius: 25px margin-bottom:25px; border-radius: 15px;">
+        <create-option-block style="border-radius: 25px;">
             <span class="material-icons">event</span>
           </create-option-block>
         </a>
       </create-option-right>
     </create-option>
 
-    <create-option style="background-color:white; margin-bottom:25px; border-radius: 15px;">
+    <!-- <create-option style="background-color:white; margin-bottom:25px; border-radius: 15px;">
       <create-option-left>
         <h2>new recommendation</h2>
       </create-option-left>
       <create-option-right>
         <a href="?p=new_recommendation">
-          <create-option-block style="border-radius: 25px;">
+        <create-option-block style="border-radius: 25px;">
             <span class="material-icons">place</span>
           </create-option-block>
         </a>
       </create-option-right>
-    </create-option>
+    </create-option> -->
 
     <create-option style="background-color:white; margin-bottom:25px; border-radius: 15px;">
       <create-option-left>
@@ -53,7 +53,7 @@ $page_description = "Post on XSN";
       </create-option-left>
       <create-option-right>
         <a href="?p=new_bucket_list">
-          <create-option-block style="border-radius: 25px;">
+        <create-option-block style="border-radius: 25px;">
             <span class="material-icons">fact_check</span>
           </create-option-block>
         </a>

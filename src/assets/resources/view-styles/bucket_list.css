@@ -1,12 +1,4 @@
-.row {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.item {
-    flex: 0 0 20%; /* Each item takes up 20% of the container width (5 items per row) */
-    padding: 10px;
-    border: 1px solid #ccc;
-    margin: 5px;
-    text-align: center;
+#bucket_list-form {
+    margin: auto;
+    max-width:800px;
 }

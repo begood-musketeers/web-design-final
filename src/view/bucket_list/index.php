@@ -6,11 +6,10 @@ include_once("controller/bucket_list.php");
 
 ?>
 <body class="gradient-a">
-    <div id="new_bucket_list-form" class="card shadow"> 
-<h1>New bucket list</h1>
-
+    <div id="bucket_list-form" class="flex-center card shadow"> 
+<h1>New bucket list</h1><br>
 <?php
-if (is_array($bucket_lists) && count($bucket_lists) > 0) {
+if (is_array($bucket_lists) && count($bucket_lists) >= 0) {
     echo '<ul>'; // Opening the <ul> tag here
     foreach($bucket_lists as $bucket_list) {
         $id = $bucket_list["id"];
@@ -32,10 +31,11 @@ if (is_array($bucket_lists) && count($bucket_lists) > 0) {
 <?php
     }
     echo '</ul>'; // Closing the <ul> tag here
+} else {
+    echo "No bucket lists found";
 }
 ?>
 </div>
-
 
 
 </body>
