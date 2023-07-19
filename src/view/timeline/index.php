@@ -53,7 +53,7 @@ include_once("controller/timeline.php");
         ' . $type_icon . '
         <a href="?p=profile&u=' . $item['username'] . '">
           <item-title>
-            <img src="assets/pfp/' . $item['username'] . '" height="50" width="50" class="item-pfp">
+            <img src="/uploads/' . $item['user_picture'] . '" height="50" width="50" class="item-pfp">
             ' . $item['username'] . ' • ' . timeago($item['created_datetime']) . '
           </item-title>
         </a>

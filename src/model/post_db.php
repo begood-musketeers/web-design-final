@@ -9,6 +9,7 @@ class PostDB {
       post.id,
       post.user_id,
       user.username,
+      user.picture AS user_picture,
       post.type,
       post.title,
       post.description,
