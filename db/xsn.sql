@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Jul 19, 2023 at 04:06 PM
+-- Generation Time: Jul 19, 2023 at 06:00 PM
 -- Server version: 8.0.33
 -- PHP Version: 8.1.20
 
@@ -34,13 +34,6 @@ CREATE TABLE `bucket_list` (
   `created_datetime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
---
--- Dumping data for table `bucket_list`
---
-
-INSERT INTO `bucket_list` (`id`, `user_id`, `title`, `created_datetime`) VALUES
-(1, 1, 'pizza', '2023-07-19 14:29:21');
-
 -- --------------------------------------------------------
 
 --
@@ -53,6 +46,21 @@ CREATE TABLE `bucket_list_item` (
   `content` varchar(256) NOT NULL,
   `completed` tinyint NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `bucket_list_item`
+--
+
+INSERT INTO `bucket_list_item` (`id`, `bucket_list_id`, `content`, `completed`) VALUES
+(2, 1, 'hallo', 0),
+(3, 1, 'cheese', 0),
+(4, 1, '', 0),
+(5, 1, '', 0),
+(6, 1, '', 0),
+(7, 1, '', 0),
+(8, 1, '', 0),
+(9, 1, '', 0),
+(10, 1, '', 0);
 
 -- --------------------------------------------------------
 
@@ -102,9 +110,26 @@ CREATE TABLE `event` (
 --
 
 INSERT INTO `event` (`id`, `user_id`, `title`, `description`, `type`, `location`, `start_datetime`, `end_datetime`, `created_datetime`, `visible`) VALUES
-(1, 1, 'test event', 'this is event', 'sports', 'event place', '2023-07-06 09:07:27', '2023-07-13 01:49:22', '2023-07-06 09:07:47', 1),
-(2, 1, 'Visit Hello Kitty land :D', 'This Sunday (09-07-23) we will be going to Hello Kitty land with our share house.\r\n\r\nWe will leave at 12:00 from Toyocho station. Be sure to bring your own food and buy your own ticket before hand at: https://hellokitty.com/tickets', 'amusement park', 'https://www.google.com/maps/place/Yomiuri+Land/@35.6191805,139.51482,15.11z/data=!4m10!1m2!2m1!1syomiuri+land!3m6!1s0x6018fa887471f1f7:0xe782eba55f33f953!8m2!3d35.6249403!4d139.5175677!15sCgx5b21pdXJpIGxhbmRaDiIMeW9taXVyaSBsYW5kkgEOYW11c2VtZW50X3BhcmvgAQA!16s%2Fm%2F04ydpcz?entry=ttu', '2023-07-07 07:42:13', '2023-07-13 01:49:22', '2023-07-07 07:45:43', 1),
-(7, 1, 'kjskdngdjsng', 'lgjndslgnsfd', 'cinema', '', '2023-07-11 00:00:00', '2023-07-11 00:00:00', '2023-07-19 14:25:30', 1);
+(2, 1, 'Visit Hello Kitty land :D', 'This Sunday (09-07-23) we will be going to Hello Kitty land with our share house.\r\n\r\nWe will leave at 12:00 from Toyocho station. Be sure to bring your own food and buy your own ticket before hand at: https://hellokitty.com/tickets', 'amusement park', 'https://www.google.com/maps/place/Yomiuri+Land/@35.6191805,139.51482,15.11z/data=!4m10!1m2!2m1!1syomiuri+land!3m6!1s0x6018fa887471f1f7:0xe782eba55f33f953!8m2!3d35.6249403!4d139.5175677!15sCgx5b21pdXJpIGxhbmRaDiIMeW9taXVyaSBsYW5kkgEOYW11c2VtZW50X3BhcmvgAQA!16s%2Fm%2F04ydpcz?entry=ttu', '2023-07-07 07:42:13', '2023-07-13 01:49:22', '2023-07-07 07:45:43', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `event_participant`
+--
+
+CREATE TABLE `event_participant` (
+  `user_id` int NOT NULL,
+  `event_id` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `event_participant`
+--
+
+INSERT INTO `event_participant` (`user_id`, `event_id`) VALUES
+(1, 2),
+(6, 2);
 
 -- --------------------------------------------------------
 
@@ -137,11 +162,9 @@ CREATE TABLE `image` (
 INSERT INTO `image` (`id`, `object_id`, `object_type`, `file_name`) VALUES
 (1, 1, 'post', 'cat.jpg'),
 (2, 1, 'post', 'dog.jpg'),
-(3, 1, 'event', 'schiphol.jpg'),
 (4, 2, 'event', 'hello_kitty.jpg'),
 (5, 2, 'event', 'hello_kitty_2.jpg'),
 (6, 2, 'event', 'hello_kitty_3.jpg'),
-(60, 7, 'event', '64b7f25aac5d66.68811700.png'),
 (61, 51, 'post', '64b7fce5bfe9f9.06017192.png');
 
 -- --------------------------------------------------------
@@ -156,9 +179,19 @@ CREATE TABLE `notification` (
   `acting_user_id` int NOT NULL,
   `object_id` int NOT NULL,
   `object_type` enum('post','recommendation','bucket_list','event') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `type` enum('like','comment') NOT NULL,
+  `type` enum('like','comment','event_join') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `created_datetime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `notification`
+--
+
+INSERT INTO `notification` (`id`, `user_id`, `acting_user_id`, `object_id`, `object_type`, `type`, `created_datetime`) VALUES
+(13, 1, 1, 2, 'event', 'event_join', '2023-07-19 17:52:27'),
+(14, 1, 1, 2, 'event', 'like', '2023-07-19 17:55:35'),
+(15, 1, 1, 2, 'event', 'like', '2023-07-19 17:55:36'),
+(16, 1, 1, 2, 'event', 'event_join', '2023-07-19 17:55:39');
 
 -- --------------------------------------------------------
 
@@ -230,7 +263,6 @@ CREATE TABLE `user_like` (
 --
 
 INSERT INTO `user_like` (`user_id`, `object_id`, `object_type`) VALUES
-(1, 1, 'event'),
 (1, 2, 'event'),
 (1, 51, 'post'),
 (6, 51, 'post');
@@ -262,6 +294,12 @@ ALTER TABLE `comment`
 --
 ALTER TABLE `event`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `event_participant`
+--
+ALTER TABLE `event_participant`
+  ADD PRIMARY KEY (`user_id`,`event_id`);
 
 --
 -- Indexes for table `follow`
@@ -313,7 +351,7 @@ ALTER TABLE `bucket_list`
 -- AUTO_INCREMENT for table `bucket_list_item`
 --
 ALTER TABLE `bucket_list_item`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `comment`
@@ -337,7 +375,7 @@ ALTER TABLE `image`
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `post`
