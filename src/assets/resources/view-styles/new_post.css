@@ -26,7 +26,7 @@ image-add .material-icons {
   font-size: 3rem;
 }
 
-.image-input {
+#images img {
   display:block;
   width:90px;
   height:90px;
